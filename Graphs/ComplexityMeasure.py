@@ -1,11 +1,10 @@
-import matplotlib
 import matplotlib.pyplot as plt
 import networkx as nx
 import sys
 from graphviz import render
 from tkinter import *
 from tkinter import Tk, Canvas, Frame, BOTH
-
+from tkinter import font
 #####################PLAG##############################
 try:
     import pygraphviz
@@ -47,6 +46,20 @@ GENS3.add_edges_from([(0, 1), (0, 18), (1, 2), (2, 3), (3, 4), (4, 6), (4, 5),(5
 PM1 = nx.DiGraph(name="PM1")
 #Graph edges
 PM1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (3, 9), (4, 5), (4, 8), (5, 6), (6, 7), (6, 8), (7, 11), (8, 11), (9, 10), (10, 11)])
+
+
+PM1.nodes[0]['Activity'] ='Faeces / perianal swabs / artefacts arrive in reception placed in plastic box'
+PM1.nodes[1]['Activity'] = 'Box sealed and transported from reception through corridors on A-floor / up internal stairs to Enterics'
+PM1.nodes[2]['Activity'] ='MLA staff check specimen details against request and code sample'
+PM1.nodes[3]['Activity'] ='Any indication sample High Risk: '
+PM1.nodes[4]['Activity'] ='Inpatient'
+PM1.nodes[5]['Activity'] ='From SRU ESSU/AMU/B3ED/LJU/CAU NG2/C31/D57 Toghill or Fletcher wards'
+PM1.nodes[6]['Activity'] ='Check on NOTIS Is date of admission greater than 3 days'
+PM1.nodes[7]['Activity'] ='Code for C diff only +extras (no culture) and follow C diff process'
+PM1.nodes[8]['Activity'] ='Follow routine Process'
+PM1.nodes[9]['Activity'] ='Transfer to Cat 3 in High risk transport box.'
+PM1.nodes[10]['Activity'] ='Process as per methods but within Cat 3 facility – C.diff separate method'
+PM1.nodes[11]['Activity'] ='FINISH'
 
 ########################################################################################################################
 
@@ -194,8 +207,8 @@ def _create_circle(self, x, y, r, **kwargs):
 Canvas.create_circle = _create_circle
 #------------------PLAG-----------------
 
-def UIGraph():
-    pydotLayout = (nx.nx_pydot.pydot_layout(GENS2, prog='dot'))
+def UIGraph(graph):
+    pydotLayout = (nx.nx_pydot.pydot_layout(graph, prog='dot'))
     maxWidth = 0
     maxHeight = 0
     paddedFrameWidth = graphFrameWidth - (graphFrameWidth / 8)
@@ -222,7 +235,7 @@ def UIGraph():
 
     print(frameGraphLayout)
 
-    edgeList = list(GENS2.edges)
+    edgeList = list(graph.edges)
     for edge in edgeList:
         startNode = edge[0]
         endNode = edge[1]
@@ -236,17 +249,22 @@ def UIGraph():
 
         c.create_line(startNodeX, startNodeY, endNodeX, endNodeY, arrow=LAST)
 
-# def UIComplexity():
 
-
+# UI for activities :
+def UIActivities(graph):
+    listBox = Listbox()
+    activityList = graph.nodes
+    for activity in activityList:
+        sys.stdout.write(str(activity) + " - ")
+        sys.stdout.flush()
+        print(PM1.nodes[activity]['Activity'])
+        listBox.insert(activity, str(activity) + " - " + PM1.nodes[activity]['Activity'])
+    listBox.grid(row=0, column=0, sticky="nsew")
 
 def main():
-    graphList=[(GENS2)]
-    UIGraph()
-    # UIComplexity()
-    restrictiveness(GENS2)
+    UIActivities(PM1)
+    UIGraph(PM1)
     root.mainloop()
-
 
 main()
 
