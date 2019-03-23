@@ -44,9 +44,9 @@ GENS3.add_edges_from([(0, 1), (0, 18), (1, 2), (2, 3), (3, 4), (4, 6), (4, 5),(5
 
 #Graph Nodes
 PM1 = nx.DiGraph(name="PM1")
+
 #Graph edges
 PM1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (3, 9), (4, 5), (4, 8), (5, 6), (6, 7), (6, 8), (7, 11), (8, 11), (9, 10), (10, 11)])
-
 
 PM1.nodes[0]['Activity'] ='Faeces / perianal swabs / artefacts arrive in reception placed in plastic box'
 PM1.nodes[1]['Activity'] = 'Box sealed and transported from reception through corridors on A-floor / up internal stairs to Enterics'
@@ -81,191 +81,224 @@ PM3.add_edges_from([(0, 1), (0,5), (0,16), (0,20), (0,29), (0,33), (0,42), (0,44
                     (31,32), (32,51), (33,34), (34,35), (35,36), (36,37), (37,38), (38,39), (38,40), (39,51), (40,41), (41,51), (42,43), (43,51),
                     (44,45), (45,46), (46,47), (47,48), (48,49), (48,50), (49,51), (50,51)])
 
-####################################LIST STUFF#########################################################
-#Learn to feed list into function
+########################################################################################################################
 
+class DiGraphUI:
 
-def graphDrawGen(graph_list):
-    for graphList in graph_list:
-        for key, value in graphList.graph.items() :
+    def __init__(self, selectedGraph):
+        self.selectedGraph = selectedGraph
+
+    def graphDrawGen(self):
+        for key, value in self.graph.items():
+            print(key, value)
             graphName = value
             print(graphName)
-        write_dot(graphList, 'SOP/' + graphName + '.gv')
-        render('dot', 'png', 'SOP/' + graphName +'.gv')
-        graphListPos = nx.nx_pydot.pydot_layout(graphList, prog='dot')
-        nx.draw(graphList, graphListPos, with_labels=True)
+        write_dot(self, 'SOP/' + graphName + '.gv')
+        render('dot', 'png', 'SOP/' + graphName + '.gv')
+        graphListPos = nx.nx_pydot.pydot_layout(self, prog='dot')
+        nx.draw(self, graphListPos, with_labels=True)
         plt.savefig('SOP/' + graphName + '.png', dpi=1000)
         plt.clf()
 
-#########################CYCLOMATIC NUMBER#########################
-def cyclomaticNumber(graph):
-    nodeNum = (graph.number_of_nodes())
-    edgeNum = (graph.number_of_edges())
-    cyclomaticNumber = (edgeNum-nodeNum)+1
-    return cyclomaticNumber
-
-########################Framework for restrictiveness
-########################TRANSITIVE MATRIX PLAG#######################
-def restrictiveness(graphList):
-    print("--------------------ADJACENCY MATRIX " + str(graphList) +" --------------------")
-    graphListEdges = (list(graphList.edges))
-    nodeNum = (graphList.number_of_nodes())
-
-    adjacencyArray = [[0 for x in range(nodeNum)] for y in range(nodeNum)]
-
-    print("   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24")
-
-    xAxis=0
-
-    for x in graphListEdges:
-        coord=[]
-        for c in x:
-            coord.append(c)
-        adjacencyArray [coord[0]][coord[1]] = 1
-
-    #Simple output so that we can see the adjacency array in CMD
-    for r in adjacencyArray:
-        sys.stdout.write(str(xAxis)+ "  ")
-        sys.stdout.flush()
-        xAxis=xAxis+1
-        for c in r:
-            print(str(c)+ "  ")
-            sys.stdout.write(str(c)+ "  ")
-            sys.stdout.flush()
-        print()
-    print()
-#
-#
-#     #################REACHABILITY MATRIX PLAG ##################
-#     print("--------------------REACHABILITY MATRIX " + str(graphList) +" --------------------")
-#     arrayReach = [row[:] for row in arrayAdjacency]
-#
-#     # Prints transitive closure of graph[][] using Floyd Warshall algorithm
-#     for k in range(len(arrayReach)):
-#
-#         # Pick all vertices as source one by one
-#         for i in range(len(arrayReach)):
-#
-#             # Pick all vertices as destination for the
-#             # above picked source
-#             for j in range(len(arrayReach)):
-#
-#                 # If vertex k is on a path from i to j,
-#                     # then make sure that the value of reach[i][j] is 1
-#                 arrayReach[i][j] = arrayReach[i][j] or (arrayReach[i][k] and arrayReach[k][j])
-#
-#     #Can array reach itself?
-#
-#     #Printing X and Y axis
-#     sys.stdout.write("   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24")
-#     sys.stdout.flush()
-#     print()
-#     xAxis=0
-#
-#
-#     for r in arrayReach:
-#         sys.stdout.write(str(xAxis)+ "  ")
-#         sys.stdout.flush()
-#         xAxis=xAxis+1
-#         for c in r:
-#             sys.stdout.write(str(c)+ "  ")
-#             sys.stdout.flush()
-#         print()p
-#
-#     print(),print()
-#-------------------------------Graph Shit--------------------------------
-root = Tk()
-root.title('Model Definition')
-root.state("zoomed")  #to make it full screen
-root.title("Vehicle Window Fitting - Management System")
-
-#Values for obtaining scree size
-width = root.winfo_screenwidth()
-height = root.winfo_screenheight()
-root.geometry('%sx%s' % (width, height))
-
-graphFrameWidth = width/2
-sideFrameWidth = width/4
-
-# Create the main container (Super container)
-descFrame = Frame(root, bg='red',width=sideFrameWidth, height=height)
-graphFrame = Frame(root, bg='green',width=graphFrameWidth, height=height)
-complexFrame = Frame(root, bg='blue',width=sideFrameWidth, height=height)
-
-descFrame.grid(row=0, column=0)
-graphFrame.grid(row=0, column=1)
-complexFrame.grid(row=0, column=2)
-
-#///////////// ------- Canvas stuff
-c = Canvas(graphFrame, bg='white', width=width/2, height=height)
-c.pack()
-c.pack(fill=BOTH, expand=1)
-
-#------------Circle builder PLAG------------------
-def _create_circle(self, x, y, r, **kwargs):
-    return self.create_oval(x-r, y-r, x+r, y+r, **kwargs)
-Canvas.create_circle = _create_circle
-#------------------PLAG-----------------
-
-def UIGraph(graph):
-    pydotLayout = (nx.nx_pydot.pydot_layout(graph, prog='dot'))
-    maxWidth = 0
-    maxHeight = 0
-    paddedFrameWidth = graphFrameWidth - (graphFrameWidth / 8)
-    paddedHeight = height - (height / 8)
-    frameGraphLayout = {}
-
-    for node in pydotLayout:
-        x = pydotLayout[node][0]
-        if (x > maxWidth):
-            maxWidth = x
-        y = pydotLayout[node][1]
-        if (y > maxHeight):
-            maxHeight = y
-
-    for node in pydotLayout:
-        x = pydotLayout[node][0]
-        xRel = (x) * (paddedFrameWidth / maxWidth)
-        y = pydotLayout[node][1]
-        yRel = (y) * (paddedHeight / maxHeight)
-        yRel = paddedHeight - yRel
-        widget = Label(c, text=node, fg='white', bg='red')
-        widget.place(x=xRel, y=yRel)
-        frameGraphLayout[node]=xRel,yRel
-
-    print(frameGraphLayout)
-
-    edgeList = list(graph.edges)
-    for edge in edgeList:
-        startNode = edge[0]
-        endNode = edge[1]
-
-        startNodeX = frameGraphLayout[startNode][0]
-        startNodeY = frameGraphLayout[startNode][1]
-        endNodeX = frameGraphLayout[endNode][0]
-        endNodeY = frameGraphLayout[endNode][1]
-        print ("BEGIN - " + str(startNodeX) + " " + str(startNodeY))
-        print ("END - " + str(endNodeX) + " " + str(endNodeY))
-
-        c.create_line(startNodeX, startNodeY, endNodeX, endNodeY, arrow=LAST)
+    ########################Framework for restrictiveness
+    ########################TRANSITIVE MATRIX PLAG#######################
 
 
-# UI for activities :
-def UIActivities(graph):
+    def UIGraph(self):
+        root = Tk()
+        root.title('Model Definition')
+        root.state("zoomed")  # to make it full screen
+        root.title("Vehicle Window Fitting - Management System")
+
+        # Values for obtaining scree size
+        width = root.winfo_screenwidth()
+        height = root.winfo_screenheight()
+        root.geometry('%sx%s' % (width, height))
+
+        #Base values to ensure relative positioning within interface
+        graphFrameWidth = width / 2
+        sideFrameWidth = width / 4
+
+        # Create the main container (Super container)
+        descFrame = Frame(root, bg='red', width=sideFrameWidth, height=height)
+        graphFrame = Frame(root, bg='green', width=graphFrameWidth, height=height)
+        complexFrame = Frame(root, bg='blue', width=sideFrameWidth, height=height)
+
+        descFrame.grid(row=0, column=0)
+        graphFrame.grid(row=0, column=1)
+        complexFrame.grid(row=0, column=2)
+
+        # ///////////// ------- Canvas stuff
+        graphCanvas = Canvas(graphFrame, bg='white', width=width / 2, height=height)
+        graphCanvas.pack()
+        graphCanvas.pack(fill=BOTH, expand=1)
+
+        ####################################################
+
+        pydotLayout = (nx.nx_pydot.pydot_layout(self, prog='dot'))
+        maxWidth = 0
+        maxHeight = 0
+        paddedFrameWidth = graphFrameWidth - (graphFrameWidth / 8)
+        paddedHeight = height - (height / 8)
+        frameGraphLayout = {}
+
+        for node in pydotLayout:
+            x = pydotLayout[node][0]
+            if (x > maxWidth):
+                maxWidth = x
+            y = pydotLayout[node][1]
+            if (y > maxHeight):
+                maxHeight = y
+
+        for node in pydotLayout:
+            x = pydotLayout[node][0]
+            xRel = (x) * (paddedFrameWidth / maxWidth)
+            y = pydotLayout[node][1]
+            yRel = (y) * (paddedHeight / maxHeight)
+            yRel = paddedHeight - yRel
+            widget = Label(graphCanvas, text=node, fg='white', bg='red')
+            widget.place(x=xRel, y=yRel)
+            frameGraphLayout[node]=xRel,yRel
+
+
+        edgeList = list(self.edges)
+        for edge in edgeList:
+            startNode = edge[0]
+            endNode = edge[1]
+
+            startNodeX = frameGraphLayout[startNode][0]
+            startNodeY = frameGraphLayout[startNode][1]
+            endNodeX = frameGraphLayout[endNode][0]
+            endNodeY = frameGraphLayout[endNode][1]
+            # print ("BEGIN - " + str(startNodeX) + " " + str(startNodeY))
+            # print ("END - " + str(endNodeX) + " " + str(endNodeY))
+
+            graphCanvas.create_line(startNodeX, startNodeY, endNodeX, endNodeY, arrow=LAST)
+
+        UIActivities(self)
+
+        #Complexity UI
+        complexityHeader = Label(complexFrame, text = "Complexity measures", font=("TkDefaultFont", 25))
+        complexityHeader.place(x=sideFrameWidth/2, y=height/20, anchor="center")
+
+        cyclomaticNumberVal = cyclomaticNumber(self)
+        cyclomaticLabel = Label(complexFrame, text = ("Cyclomatic complexity \n" + str(cyclomaticNumberVal)),
+                                font=("TkDefaultFont", 20))
+        cyclomaticLabel.place(x=sideFrameWidth/2, y=height/8, anchor="center")
+
+        restrictivenessVal = restrictiveness(self)
+        restrictivenessLabel = Label(complexFrame, text=("Cyclomatic complexity \n" + str(restrictivenessVal)),
+                                font=("TkDefaultFont", 20))
+        restrictivenessLabel.place(x=sideFrameWidth / 2, y=2*(height/8), anchor="center")
+
+        root.mainloop()
+
+#To work with class, must be outside of class?
+#ASK JAMIE
+    # UI for activities :
+def UIActivities(self):
     listBox = Listbox()
-    activityList = graph.nodes
+    activityList = self.nodes
     for activity in activityList:
         sys.stdout.write(str(activity) + " - ")
         sys.stdout.flush()
-        print(PM1.nodes[activity]['Activity'])
-        listBox.insert(activity, str(activity) + " - " + PM1.nodes[activity]['Activity'])
+        print(self.nodes[activity]['Activity'])
+        listBox.insert(activity, str(activity) + " - " + self.nodes[activity]['Activity'])
     listBox.grid(row=0, column=0, sticky="nsew")
 
+def cyclomaticNumber(self):
+    nodeNum = (self.number_of_nodes())
+    edgeNum = (self.number_of_edges())
+    cyclomaticNumber = (edgeNum-nodeNum)+1
+    return(cyclomaticNumber)
+
+def restrictiveness(self):
+
+    #Obtain list of edges
+    graphListEdges = (list(self.edges))
+    #Obtain number of nodes
+    nodeNum = (self.number_of_nodes())
+    #Build 2D array of size nodenum- Iterate through all values, setting them to 0 (no adjacency)
+    adjacencyArray = [[0 for x in range(nodeNum)] for y in range(nodeNum)]
+    #Iterate through list of edges
+    for eachEdge in graphListEdges:
+        # Init coordinate list
+        coord=[]
+        # Iterate through node pairs that compose edges
+        for eachNode in eachEdge:
+            #Append node to list
+            coord.append(eachNode)
+        #Call coordinate variables from cordinate list, then set each subsequent adjacency array value to 1 for each coordiante value pair
+        adjacencyArray [coord[0]][coord[1]] = 1
+
+    #Simple output so that we can see the adjacency array in CMD
+    print("--------------------ADJACENCY MATRIX " + str(self) +" --------------------")
+    xAxis = 0
+    sys.stdout.write("   ")
+    sys.stdout.flush()
+    for eachColumm in range(nodeNum):
+        sys.stdout.write(str(eachColumm) + "  ")
+        sys.stdout.flush()
+    print()
+    for eachRow in adjacencyArray:
+        sys.stdout.write(str(xAxis) + "  ")
+        xAxis+=1
+        for eachValue in eachRow:
+            sys.stdout.write(str(eachValue)+ "  ")
+            sys.stdout.flush()
+        print()
+
+    ################REACHABILITY MATRIX PLAG ##################
+    # Init the reachability matrix, using the adjacency array
+    reachabilityArray = [value[:] for value in adjacencyArray]
+    # Select all nodes from the array
+    for all in range(len(reachabilityArray)):
+        # Select all nodes as the start of the path
+        for start in range(len(reachabilityArray)):
+            # Select all nodes as the end of the path
+            for end in range(len(reachabilityArray)):
+                # If we are on the shortest path available from start node to end node, then update the reachability array (with 1)
+                reachabilityArray[start][end] = reachabilityArray[start][end] or (reachabilityArray[start][all] and reachabilityArray[all][end])
+
+    # Simple output so that we can see the reachability array in CMD
+    print("--------------------ADJACENCY MATRIX " + str(self) +" --------------------")
+    xAxis = 0
+    sys.stdout.write("   ")
+    sys.stdout.flush()
+    for eachColumm in range(nodeNum):
+        sys.stdout.write(str(eachColumm) + "  ")
+        sys.stdout.flush()
+    print()
+    for eachRow in reachabilityArray:
+        sys.stdout.write(str(xAxis) + "  ")
+        xAxis+=1
+        for eachValue in eachRow:
+            sys.stdout.write(str(eachValue)+ "  ")
+            sys.stdout.flush()
+        print()
+
+    #Restrictivness Estimator
+    print(reachabilityArray[0])
+    #Convert reachabilityArray into 1D array/single list
+    reachabilityList = []
+    for eachRow in reachabilityArray:
+        xAxis+=1
+        for eachValue in eachRow:
+            reachabilityList.append(eachValue)
+
+    # restrictivenessEstimator = ((2*(sum(reachabilityList)))-(6(nodeNum-1)))/((nodeNum-2)(nodeNum-3)))
+    restrictivenessEstimator = (((2*(sum(reachabilityList)))-6*(nodeNum-1))/(nodeNum-2)*(nodeNum-3))
+    return restrictivenessEstimator
+
 def main():
-    UIActivities(PM1)
-    UIGraph(PM1)
-    root.mainloop()
 
-main()
+    print(type(PM1))
+    DiGraphUI.graphDrawGen(GENS3)
+    # DiGraphUI.cyclomaticNumber(PM1)
+    # DiGraphUI.restrictiveness(PM1)
+    # DiGraphUI.UIGraph(PM1)
+    # DiGraphUI.Activities(PM1)
 
+if __name__ == "__main__":
+    main()
 
