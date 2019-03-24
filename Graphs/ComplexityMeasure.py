@@ -18,11 +18,42 @@ except ImportError:
         raise
 
 ########################PLAG#############
+#Graph Nodes
+graph1 = nx.DiGraph(name="Graph 1")
+#Graph edges
+graph1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 21), (0, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13), (13, 21),
+                      (0, 14), (14, 15), (15, 16), (16, 17), (17, 18), (18,19), (19, 20), (20, 21)])
+
+graph1.nodes[0]['Activity'] ='Faeces / perianal swabs / artefacts arrive in reception placed in plastic box'
+graph1.nodes[1]['Activity'] = 'Box sealed and transported from reception through corridors on A-floor / up internal stairs to Enterics'
+graph1.nodes[2]['Activity'] ='MLA staff check specimen details against request and code sample'
+graph1.nodes[3]['Activity'] ='Any indication sample High Risk: '
+graph1.nodes[4]['Activity'] ='Inpatient'
+graph1.nodes[5]['Activity'] ='From SRU ESSU/AMU/B3ED/LJU/CAU NG2/C31/D57 Toghill or Fletcher wards'
+graph1.nodes[6]['Activity'] ='Check on NOTIS Is date of admission greater than 3 days'
+graph1.nodes[7]['Activity'] ='Code for C diff only +extras (no culture) and follow C diff process'
+graph1.nodes[8]['Activity'] ='Follow routine Process'
+graph1.nodes[9]['Activity'] ='Transfer to Cat 3 in High risk transport box.'
+graph1.nodes[10]['Activity'] ='Process as per methods but within Cat 3 facility – C.diff separate method'
+graph1.nodes[11]['Activity'] ='FINISH'
+graph1.nodes[12]['Activity'] ='FINISH'
+graph1.nodes[13]['Activity'] ='FINISH'
+graph1.nodes[14]['Activity'] ='FINISH'
+graph1.nodes[15]['Activity'] ='FINISH'
+graph1.nodes[16]['Activity'] ='FINISH'
+graph1.nodes[17]['Activity'] ='FINISH'
+graph1.nodes[18]['Activity'] ='FINISH'
+graph1.nodes[19]['Activity'] ='FINISH'
+graph1.nodes[20]['Activity'] ='FINISH'
+graph1.nodes[21]['Activity'] ='FINISH'
+
+
+#####################################################
 
 #Graph Nodes
 GENS1 = nx.DiGraph(name="GENS1")
 #Graph edges
-GENS1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13), (13, 14),
+GENS1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13), (13, 14),
 (2, 19), (19, 20), (20, 14), (2, 16), (16, 17), (17, 18), (18, 14), (9, 21), (21, 14), (11, 23), (23, 14), (12, 22), (22, 14), (1, 15), (15, 14),
 (12, 22), (22, 14), (1, 15), (15, 14)])
 
@@ -100,10 +131,6 @@ class DiGraphUI:
         plt.savefig('SOP/' + graphName + '.png', dpi=1000)
         plt.clf()
 
-    ########################Framework for restrictiveness
-    ########################TRANSITIVE MATRIX PLAG#######################
-
-
     def UIGraph(self):
         root = Tk()
         root.title('Model Definition')
@@ -120,9 +147,9 @@ class DiGraphUI:
         sideFrameWidth = width / 4
 
         # Create the main container (Super container)
-        descFrame = Frame(root, bg='red', width=sideFrameWidth, height=height)
-        graphFrame = Frame(root, bg='green', width=graphFrameWidth, height=height)
-        complexFrame = Frame(root, bg='blue', width=sideFrameWidth, height=height)
+        descFrame = Frame(root, width=sideFrameWidth, height=height)
+        graphFrame = Frame(root, width=graphFrameWidth, height=height)
+        complexFrame = Frame(root, bg = 'white', width=sideFrameWidth, height=height)
 
         descFrame.grid(row=0, column=0)
         graphFrame.grid(row=0, column=1)
@@ -178,16 +205,16 @@ class DiGraphUI:
         UIActivities(self)
 
         #Complexity UI
-        complexityHeader = Label(complexFrame, text = "Complexity measures", font=("TkDefaultFont", 25))
+        complexityHeader = Label(complexFrame, text = "Complexity measures", font=("TkDefaultFont", 25), bg='white')
         complexityHeader.place(x=sideFrameWidth/2, y=height/20, anchor="center")
 
         cyclomaticNumberVal = cyclomaticNumber(self)
-        cyclomaticLabel = Label(complexFrame, text = ("Cyclomatic complexity \n" + str(cyclomaticNumberVal)),
+        cyclomaticLabel = Label(complexFrame, text = ("Cyclomatic complexity \n" + str(cyclomaticNumberVal)), bg='white',
                                 font=("TkDefaultFont", 20))
         cyclomaticLabel.place(x=sideFrameWidth/2, y=height/8, anchor="center")
 
         restrictivenessVal = restrictiveness(self)
-        restrictivenessLabel = Label(complexFrame, text=("Cyclomatic complexity \n" + str(restrictivenessVal)),
+        restrictivenessLabel = Label(complexFrame, text=("Restrictiveness estimator\n" + str(restrictivenessVal)), bg='white',
                                 font=("TkDefaultFont", 20))
         restrictivenessLabel.place(x=sideFrameWidth / 2, y=2*(height/8), anchor="center")
 
@@ -213,7 +240,8 @@ def cyclomaticNumber(self):
     return(cyclomaticNumber)
 
 def restrictiveness(self):
-
+    # Global access for number of trees calculation method
+    global adjacencyArray
     #Obtain list of edges
     graphListEdges = (list(self.edges))
     #Obtain number of nodes
@@ -234,17 +262,17 @@ def restrictiveness(self):
     #Simple output so that we can see the adjacency array in CMD
     print("--------------------ADJACENCY MATRIX " + str(self) +" --------------------")
     xAxis = 0
-    sys.stdout.write("   ")
+    sys.stdout.write("\t")
     sys.stdout.flush()
     for eachColumm in range(nodeNum):
-        sys.stdout.write(str(eachColumm) + "  ")
+        sys.stdout.write(str(eachColumm) + "\t")
         sys.stdout.flush()
     print()
     for eachRow in adjacencyArray:
-        sys.stdout.write(str(xAxis) + "  ")
+        sys.stdout.write(str(xAxis) + "\t")
         xAxis+=1
         for eachValue in eachRow:
-            sys.stdout.write(str(eachValue)+ "  ")
+            sys.stdout.write(str(eachValue)+ "\t")
             sys.stdout.flush()
         print()
 
@@ -260,25 +288,30 @@ def restrictiveness(self):
                 # If we are on the shortest path available from start node to end node, then update the reachability array (with 1)
                 reachabilityArray[start][end] = reachabilityArray[start][end] or (reachabilityArray[start][all] and reachabilityArray[all][end])
 
+    #Matrix is defined as the Reflexive transitive closure of the reachability matrix
+    #Therefore a node can reach itself
+    #Set diagonal elements to 1
+    for i in range(len(reachabilityArray)):
+        reachabilityArray[i][i] = 1
+
     # Simple output so that we can see the reachability array in CMD
-    print("--------------------ADJACENCY MATRIX " + str(self) +" --------------------")
+    print("--------------------REACHABILITY MATRIX " + str(self) +" --------------------")
     xAxis = 0
-    sys.stdout.write("   ")
+    sys.stdout.write("\t")
     sys.stdout.flush()
     for eachColumm in range(nodeNum):
-        sys.stdout.write(str(eachColumm) + "  ")
+        sys.stdout.write(str(eachColumm) + "\t")
         sys.stdout.flush()
     print()
     for eachRow in reachabilityArray:
-        sys.stdout.write(str(xAxis) + "  ")
+        sys.stdout.write(str(xAxis) + "\t")
         xAxis+=1
         for eachValue in eachRow:
-            sys.stdout.write(str(eachValue)+ "  ")
+            sys.stdout.write(str(eachValue)+ "\t")
             sys.stdout.flush()
         print()
 
     #Restrictivness Estimator
-    print(reachabilityArray[0])
     #Convert reachabilityArray into 1D array/single list
     reachabilityList = []
     for eachRow in reachabilityArray:
@@ -286,19 +319,48 @@ def restrictiveness(self):
         for eachValue in eachRow:
             reachabilityList.append(eachValue)
 
-    # restrictivenessEstimator = ((2*(sum(reachabilityList)))-(6(nodeNum-1)))/((nodeNum-2)(nodeNum-3)))
-    restrictivenessEstimator = (((2*(sum(reachabilityList)))-6*(nodeNum-1))/(nodeNum-2)*(nodeNum-3))
+    restrictivenessEstimator = (((2*(sum(reachabilityList)))-6*(nodeNum-1))/((nodeNum-2)*(nodeNum-3)))
     return restrictivenessEstimator
+
+def numberOfTrees(self):
+    nodeNum = (self.number_of_nodes())
+    #Matrix for diagonal array?
+    dArray = adjacencyArray
+
+    #Diagonal elements = Sum of row
+    for i in range(len(dArray)):
+        dArray[i][i] = sum(dArray[i])
+
+# Simple output so that we can see the reachability array in CMD
+    print("--------------------D MATRIX" + str(self) +" --------------------")
+    xAxis = 0
+    sys.stdout.write("\t")
+    sys.stdout.flush()
+    for eachColumm in range(nodeNum):
+        sys.stdout.write(str(eachColumm) + "\t")
+        sys.stdout.flush()
+    print()
+    for eachRow in dArray:
+        sys.stdout.write(str(xAxis) + "\t")
+        xAxis+=1
+        for eachValue in eachRow:
+            sys.stdout.write(str(eachValue)+ "\t")
+            sys.stdout.flush()
+        print()
+
 
 def main():
 
-    print(type(PM1))
-    DiGraphUI.graphDrawGen(GENS3)
+    # print(type(PM1))
+    # DiGraphUI.graphDrawGen(GENS3)
     # DiGraphUI.cyclomaticNumber(PM1)
     # DiGraphUI.restrictiveness(PM1)
-    # DiGraphUI.UIGraph(PM1)
+    DiGraphUI.UIGraph(graph1)
+    numberOfTrees(graph1)
     # DiGraphUI.Activities(PM1)
 
 if __name__ == "__main__":
     main()
 
+#SORT OUT CLASSES AND STUFF
+#SHARE VARIABLES BETWEEN METHODS
