@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import networkx as nx
-import sys
 from graphviz import render
 from tkinter import *
 from tkinter import Tk, Canvas, Frame, BOTH
-from tkinter import font
+import copy
+import numpy as np
 #####################PLAG##############################
 try:
     import pygraphviz
@@ -47,6 +47,33 @@ graph1.nodes[19]['Activity'] ='FINISH'
 graph1.nodes[20]['Activity'] ='FINISH'
 graph1.nodes[21]['Activity'] ='FINISH'
 
+graph2 = nx.DiGraph(name="Graph 1")
+#Graph edges
+graph2.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 21), (0, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13), (13, 21),
+                      (0, 14), (14, 15), (15, 16), (16, 17), (17, 18), (18,19), (19, 20), (20, 21), (2, 9), (4, 11), (12, 7), (15, 9), (17, 11)])
+
+graph2.nodes[0]['Activity'] ='Faeces / perianal swabs / artefacts arrive in reception placed in plastic box'
+graph2.nodes[1]['Activity'] = 'Box sealed and transported from reception through corridors on A-floor / up internal stairs to Enterics'
+graph2.nodes[2]['Activity'] ='MLA staff check specimen details against request and code sample'
+graph2.nodes[3]['Activity'] ='Any indication sample High Risk: '
+graph2.nodes[4]['Activity'] ='Inpatient'
+graph2.nodes[5]['Activity'] ='From SRU ESSU/AMU/B3ED/LJU/CAU NG2/C31/D57 Toghill or Fletcher wards'
+graph2.nodes[6]['Activity'] ='Check on NOTIS Is date of admission greater than 3 days'
+graph2.nodes[7]['Activity'] ='Code for C diff only +extras (no culture) and follow C diff process'
+graph2.nodes[8]['Activity'] ='Follow routine Process'
+graph2.nodes[9]['Activity'] ='Transfer to Cat 3 in High risk transport box.'
+graph2.nodes[10]['Activity'] ='Process as per methods but within Cat 3 facility – C.diff separate method'
+graph2.nodes[11]['Activity'] ='FINISH'
+graph2.nodes[12]['Activity'] ='FINISH'
+graph2.nodes[13]['Activity'] ='FINISH'
+graph2.nodes[14]['Activity'] ='FINISH'
+graph2.nodes[15]['Activity'] ='FINISH'
+graph2.nodes[16]['Activity'] ='FINISH'
+graph2.nodes[17]['Activity'] ='FINISH'
+graph2.nodes[18]['Activity'] ='FINISH'
+graph2.nodes[19]['Activity'] ='FINISH'
+graph2.nodes[20]['Activity'] ='FINISH'
+graph2.nodes[21]['Activity'] ='FINISH'
 
 #####################################################
 
@@ -325,11 +352,29 @@ def restrictiveness(self):
 def numberOfTrees(self):
     nodeNum = (self.number_of_nodes())
     #Matrix for diagonal array?
-    dArray = adjacencyArray
+    diagArray = copy.deepcopy(adjacencyArray)
 
     #Diagonal elements = Sum of row
+    for i in range(len(diagArray)):
+        diagArray[i][i] = sum(diagArray[i])
+
+    #Set negative values
+    dArray = copy.deepcopy(adjacencyArray)
     for i in range(len(dArray)):
-        dArray[i][i] = sum(dArray[i])
+        for j in range(len(dArray[i])):
+            dArray[i][j] = -(dArray[i][j])
+
+    #Merge values into single matrix
+    for i in range(len(dArray)):
+        dArray[i][i] = copy.deepcopy(diagArray[i][i])
+
+    numpyArray = np.array(dArray)
+
+    ########HARD CODED TO FINAL VALUE ATM
+    numpyArray = np.delete(numpyArray, (21), axis=0)
+    numpyArray = np.delete(numpyArray, (21), axis=1)
+    print("PLS")
+    print(np.linalg.det(numpyArray))
 
 # Simple output so that we can see the reachability array in CMD
     print("--------------------D MATRIX" + str(self) +" --------------------")
@@ -340,7 +385,7 @@ def numberOfTrees(self):
         sys.stdout.write(str(eachColumm) + "\t")
         sys.stdout.flush()
     print()
-    for eachRow in dArray:
+    for eachRow in numpyArray:
         sys.stdout.write(str(xAxis) + "\t")
         xAxis+=1
         for eachValue in eachRow:
@@ -348,6 +393,7 @@ def numberOfTrees(self):
             sys.stdout.flush()
         print()
 
+##############################PLAG################################################
 
 def main():
 
@@ -355,8 +401,8 @@ def main():
     # DiGraphUI.graphDrawGen(GENS3)
     # DiGraphUI.cyclomaticNumber(PM1)
     # DiGraphUI.restrictiveness(PM1)
-    DiGraphUI.UIGraph(graph1)
-    numberOfTrees(graph1)
+    DiGraphUI.UIGraph(graph2)
+    numberOfTrees(graph2)
     # DiGraphUI.Activities(PM1)
 
 if __name__ == "__main__":
@@ -364,3 +410,4 @@ if __name__ == "__main__":
 
 #SORT OUT CLASSES AND STUFF
 #SHARE VARIABLES BETWEEN METHODS
+#COUNT FROM 0 OR 1?
