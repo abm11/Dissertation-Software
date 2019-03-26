@@ -1,0 +1,182 @@
+!!python/object:networkx.classes.digraph.DiGraph
+_adj: &id030
+  0:
+    1: &id001 {}
+  1:
+    2: &id002 {}
+    15: &id021 {}
+  2:
+    3: &id003
+      choice: 'No'
+    16: &id022
+      choice: 'Yes'
+    19: &id025
+      choice: 'Yes'
+  3:
+    4: &id004 {}
+  4:
+    5: &id005 {}
+  5:
+    6: &id006 {}
+  6:
+    7: &id007 {}
+  7:
+    8: &id008 {}
+  8:
+    9: &id009 {}
+  9:
+    10: &id010 {}
+    21: &id027 {}
+  10:
+    11: &id011 {}
+  11:
+    12: &id012
+      choice: 'Yes'
+    23: &id029
+      choice: 'No'
+  12:
+    13: &id013 {}
+    22: &id028 {}
+  13:
+    14: &id014 {}
+  14: {}
+  15:
+    14: &id015 {}
+  16:
+    17: &id023 {}
+  17:
+    18: &id024 {}
+  18:
+    14: &id016 {}
+  19:
+    20: &id026 {}
+  20:
+    14: &id017 {}
+  21:
+    14: &id018 {}
+  22:
+    14: &id019 {}
+  23:
+    14: &id020 {}
+_node: &id032
+  0:
+    Activity: Faeces samples processed as per PR2062 and associated process map as
+      standard of care.
+  1:
+    Activity: "Sample worklist prepared by either:\u2022\tWinPath worklists searched\
+      \ for known positive samples\u2022\tSelection of samples with suggestive clinical\
+      \ details\u2022\tNEQAS\u2022\tSpiking known culture negative stools with bacterial\
+      \ targets"
+  2:
+    Activity: Any indication sample High Risk?
+  3:
+    Activity: Samples located in B floor walk in fridge
+  4:
+    Activity: Class 1 safety cabinet is cleaned with Trigene followed by DNAzap
+  5:
+    Activity: 1mL STAR buffer to a sterile molecular grade microcentrifuge tube.  Add
+      100uL liquid stool or rice sized portion if solid.  Vortex for 1 min
+  6:
+    Activity: Incubate for 15 min at RT, vortex after ~7 min and at 15 min.
+  7:
+    Activity: Centrifuge for 2 min at 6500rpm.
+  8:
+    Activity: Allow to stand at RT for 5 min
+  9:
+    Activity: Transfer 500uL of supernatant into a new a sterile molecular grade microcentrifuge
+      tube.
+  10:
+    Activity: Store remaining buffer/stool mixtures in a rack inside a sealed container
+      until PCR proves no CL3 pathogen present.
+  11:
+    Activity: PCR shows sample contains CL3 pathogen?
+  12:
+    Activity: Transfer sealed box into CL3 and dispose of samples in sharps bin.
+  13:
+    Activity: Disinfect transport box and rack with 10% distil before removal back
+      into CL2
+  14:
+    Activity: FINISHED
+  15:
+    Activity: "For spiked stools include on current worklist \u2013 follow ENS2 process\
+      \ map."
+  16:
+    Activity: "1.\tCysticercosis"
+  17:
+    Activity: Samples located in CL3
+  18:
+    Activity: "Process as per methods but within Cat 3 facility \u2013 follow ENS3\
+      \ process map."
+  19:
+    Activity: "1.\tHydatid "
+  20:
+    Activity: Do not include in this pathway
+  21:
+    Activity: Supernatants ready for use on the EasyMag
+  22:
+    Activity: Dispose using CL3 route
+  23:
+    Activity: Dispose using CL2 route
+_pred:
+  0: {}
+  1:
+    0: *id001
+  2:
+    1: *id002
+  3:
+    2: *id003
+  4:
+    3: *id004
+  5:
+    4: *id005
+  6:
+    5: *id006
+  7:
+    6: *id007
+  8:
+    7: *id008
+  9:
+    8: *id009
+  10:
+    9: *id010
+  11:
+    10: *id011
+  12:
+    11: *id012
+  13:
+    12: *id013
+  14:
+    13: *id014
+    15: *id015
+    18: *id016
+    20: *id017
+    21: *id018
+    22: *id019
+    23: *id020
+  15:
+    1: *id021
+  16:
+    2: *id022
+  17:
+    16: *id023
+  18:
+    17: *id024
+  19:
+    2: *id025
+  20:
+    19: *id026
+  21:
+    9: *id027
+  22:
+    12: *id028
+  23:
+    11: *id029
+_succ: *id030
+adjlist_inner_dict_factory: &id031 !!python/name:builtins.dict ''
+adjlist_outer_dict_factory: *id031
+edge_attr_dict_factory: *id031
+graph:
+  name: GENS1
+node_dict_factory: *id031
+nodes: !!python/object:networkx.classes.reportviews.NodeView
+  _nodes: *id032
