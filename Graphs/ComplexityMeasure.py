@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter import Tk, Canvas, Frame, BOTH
 import copy
 import numpy as np
+
 #####################PLAG##############################
 try:
     import pygraphviz
@@ -17,6 +18,8 @@ except ImportError:
         print("Import Fail")
         raise
 
+
+
 ########################PLAG#############
 #Graph Nodes
 graph1 = nx.DiGraph(name="Graph 1")
@@ -24,56 +27,62 @@ graph1 = nx.DiGraph(name="Graph 1")
 graph1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 21), (0, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13), (13, 21),
                       (0, 14), (14, 15), (15, 16), (16, 17), (17, 18), (18,19), (19, 20), (20, 21)])
 
-graph1.nodes[0]['Activity'] ='Faeces / perianal swabs / artefacts arrive in reception placed in plastic box'
-graph1.nodes[1]['Activity'] = 'Box sealed and transported from reception through corridors on A-floor / up internal stairs to Enterics'
-graph1.nodes[2]['Activity'] ='MLA staff check specimen details against request and code sample'
-graph1.nodes[3]['Activity'] ='Any indication sample High Risk: '
-graph1.nodes[4]['Activity'] ='Inpatient'
-graph1.nodes[5]['Activity'] ='From SRU ESSU/AMU/B3ED/LJU/CAU NG2/C31/D57 Toghill or Fletcher wards'
-graph1.nodes[6]['Activity'] ='Check on NOTIS Is date of admission greater than 3 days'
-graph1.nodes[7]['Activity'] ='Code for C diff only +extras (no culture) and follow C diff process'
-graph1.nodes[8]['Activity'] ='Follow routine Process'
-graph1.nodes[9]['Activity'] ='Transfer to Cat 3 in High risk transport box.'
-graph1.nodes[10]['Activity'] ='Process as per methods but within Cat 3 facility – C.diff separate method'
-graph1.nodes[11]['Activity'] ='FINISH'
-graph1.nodes[12]['Activity'] ='FINISH'
-graph1.nodes[13]['Activity'] ='FINISH'
-graph1.nodes[14]['Activity'] ='FINISH'
-graph1.nodes[15]['Activity'] ='FINISH'
-graph1.nodes[16]['Activity'] ='FINISH'
-graph1.nodes[17]['Activity'] ='FINISH'
-graph1.nodes[18]['Activity'] ='FINISH'
-graph1.nodes[19]['Activity'] ='FINISH'
-graph1.nodes[20]['Activity'] ='FINISH'
-graph1.nodes[21]['Activity'] ='FINISH'
+graph1.nodes[0]['Activity'] = 'DUMMY'
+graph1.nodes[1]['Activity'] = 'DUMMY'
+graph1.nodes[2]['Activity'] = 'DUMMY'
+graph1.nodes[3]['Activity'] = 'DUMMY'
+graph1.nodes[4]['Activity'] = 'DUMMY'
+graph1.nodes[5]['Activity'] = 'DUMMY'
+graph1.nodes[6]['Activity'] = 'DUMMY'
+graph1.nodes[7]['Activity'] = 'DUMMY'
+graph1.nodes[8]['Activity'] = 'DUMMY'
+graph1.nodes[9]['Activity'] = 'DUMMY'
+graph1.nodes[10]['Activity'] = 'DUMMY'
+graph1.nodes[11]['Activity'] = 'DUMMY'
+graph1.nodes[12]['Activity'] = 'DUMMY'
+graph1.nodes[13]['Activity'] = 'DUMMY'
+graph1.nodes[14]['Activity'] = 'DUMMY'
+graph1.nodes[15]['Activity'] = 'DUMMY'
+graph1.nodes[16]['Activity'] = 'DUMMY'
+graph1.nodes[17]['Activity'] = 'DUMMY'
+graph1.nodes[18]['Activity'] = 'DUMMY'
+graph1.nodes[19]['Activity'] = 'DUMMY'
+graph1.nodes[20]['Activity'] = 'DUMMY'
+graph1.nodes[21]['Activity'] = 'DUMMY'
+
+# nx.write_gexf(graph1, "test.gexf")
+#
+# graph123 = nx.DiGraph(nx.read_gexf("test.gexf"))
+# print("NO - " + str(graph123))
+# graph1 =  nx.DiGraph(nx.read_gexf("test.gexf"))
 
 graph2 = nx.DiGraph(name="Graph 1")
 #Graph edges
 graph2.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 21), (0, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13), (13, 21),
                       (0, 14), (14, 15), (15, 16), (16, 17), (17, 18), (18,19), (19, 20), (20, 21), (2, 9), (4, 11), (12, 7), (15, 9), (17, 11)])
 
-graph2.nodes[0]['Activity'] ='Faeces / perianal swabs / artefacts arrive in reception placed in plastic box'
-graph2.nodes[1]['Activity'] = 'Box sealed and transported from reception through corridors on A-floor / up internal stairs to Enterics'
-graph2.nodes[2]['Activity'] ='MLA staff check specimen details against request and code sample'
-graph2.nodes[3]['Activity'] ='Any indication sample High Risk: '
-graph2.nodes[4]['Activity'] ='Inpatient'
-graph2.nodes[5]['Activity'] ='From SRU ESSU/AMU/B3ED/LJU/CAU NG2/C31/D57 Toghill or Fletcher wards'
-graph2.nodes[6]['Activity'] ='Check on NOTIS Is date of admission greater than 3 days'
-graph2.nodes[7]['Activity'] ='Code for C diff only +extras (no culture) and follow C diff process'
-graph2.nodes[8]['Activity'] ='Follow routine Process'
-graph2.nodes[9]['Activity'] ='Transfer to Cat 3 in High risk transport box.'
-graph2.nodes[10]['Activity'] ='Process as per methods but within Cat 3 facility – C.diff separate method'
-graph2.nodes[11]['Activity'] ='FINISH'
-graph2.nodes[12]['Activity'] ='FINISH'
-graph2.nodes[13]['Activity'] ='FINISH'
-graph2.nodes[14]['Activity'] ='FINISH'
-graph2.nodes[15]['Activity'] ='FINISH'
-graph2.nodes[16]['Activity'] ='FINISH'
-graph2.nodes[17]['Activity'] ='FINISH'
-graph2.nodes[18]['Activity'] ='FINISH'
-graph2.nodes[19]['Activity'] ='FINISH'
-graph2.nodes[20]['Activity'] ='FINISH'
-graph2.nodes[21]['Activity'] ='FINISH'
+graph2.nodes[0]['Activity'] = 'Check sample not leaked – unbag and label sample & consumables then transfer into the safety cabinet. If leaking transfer to safety cabinet before un-bagging.'
+graph2.nodes[1]['Activity'] = 'DUMMY'
+graph2.nodes[2]['Activity'] = 'DUMMY'
+graph2.nodes[3]['Activity'] = 'DUMMY'
+graph2.nodes[4]['Activity'] = 'DUMMY'
+graph2.nodes[5]['Activity'] = 'DUMMY'
+graph2.nodes[6]['Activity'] = 'DUMMY'
+graph2.nodes[7]['Activity'] = 'DUMMY'
+graph2.nodes[8]['Activity'] = 'DUMMY'
+graph2.nodes[9]['Activity'] = 'DUMMY'
+graph2.nodes[10]['Activity'] = 'DUMMY'
+graph2.nodes[11]['Activity'] = 'DUMMY'
+graph2.nodes[12]['Activity'] = 'DUMMY'
+graph2.nodes[13]['Activity'] = 'DUMMY'
+graph2.nodes[14]['Activity'] = 'DUMMY'
+graph2.nodes[15]['Activity'] = 'DUMMY'
+graph2.nodes[16]['Activity'] = 'DUMMY'
+graph2.nodes[17]['Activity'] = 'DUMMY'
+graph2.nodes[18]['Activity'] = 'DUMMY'
+graph2.nodes[19]['Activity'] = 'DUMMY'
+graph2.nodes[20]['Activity'] = 'DUMMY'
+graph2.nodes[21]['Activity'] = 'DUMMY'
 
 #####################################################
 
@@ -84,6 +93,51 @@ GENS1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7
 (2, 19), (19, 20), (20, 14), (2, 16), (16, 17), (17, 18), (18, 14), (9, 21), (21, 14), (11, 23), (23, 14), (12, 22), (22, 14), (1, 15), (15, 14),
 (12, 22), (22, 14), (1, 15), (15, 14)])
 
+#Set edge labels
+attrs = {(2, 19): {'choice': 'Yes'}, (2, 16): {'choice': 'Yes'}, (2, 3): {'choice': 'No'}, (2, 16): {'choice': 'Yes'},
+         (11, 12): {'choice': 'Yes'}, (11, 23): {'choice': 'No'}}
+nx.set_edge_attributes(GENS1, attrs)
+
+#Node activity's
+GENS1.nodes[0]['Activity'] = 'Faeces samples processed as per PR2062 and associated process map as standard of care.'
+GENS1.nodes[1]['Activity'] = 'Sample worklist prepared by either:•	WinPath worklists searched for known positive samples•	Selection of samples with suggestive clinical details•	NEQAS•	Spiking known culture negative stools with bacterial targets'
+GENS1.nodes[2]['Activity'] = 'Any indication sample High Risk?'
+GENS1.nodes[3]['Activity'] = 'Samples located in B floor walk in fridge'
+GENS1.nodes[4]['Activity'] = 'Class 1 safety cabinet is cleaned with Trigene followed by DNAzap'
+GENS1.nodes[5]['Activity'] = '1mL STAR buffer to a sterile molecular grade microcentrifuge tube.  Add 100uL liquid stool or rice sized portion if solid.  Vortex for 1 min'
+GENS1.nodes[6]['Activity'] = 'Incubate for 15 min at RT, vortex after ~7 min and at 15 min.'
+GENS1.nodes[7]['Activity'] = 'Centrifuge for 2 min at 6500rpm.'
+GENS1.nodes[8]['Activity'] = 'Allow to stand at RT for 5 min'
+GENS1.nodes[9]['Activity'] = 'Transfer 500uL of supernatant into a new a sterile molecular grade microcentrifuge tube.'
+GENS1.nodes[10]['Activity'] = 'Store remaining buffer/stool mixtures in a rack inside a sealed container until PCR proves no CL3 pathogen present.'
+GENS1.nodes[11]['Activity'] = 'PCR shows sample contains CL3 pathogen?'
+GENS1.nodes[12]['Activity'] = 'Transfer sealed box into CL3 and dispose of samples in sharps bin.'
+GENS1.nodes[13]['Activity'] = 'Disinfect transport box and rack with 10% distil before removal back into CL2'
+GENS1.nodes[14]['Activity'] = 'FINISHED'
+GENS1.nodes[15]['Activity'] = 'For spiked stools include on current worklist – follow ENS2 process map.'
+##############################FINISH 16 LATER
+GENS1.nodes[16]['Activity'] = '1.	Cysticercosis'
+GENS1.nodes[17]['Activity'] = 'Samples located in CL3'
+GENS1.nodes[18]['Activity'] = 'Process as per methods but within Cat 3 facility – follow ENS3 process map.'
+##############################FINISH 19 LATER
+GENS1.nodes[19]['Activity'] = '1.	Hydatid '
+GENS1.nodes[20]['Activity'] = 'Do not include in this pathway'
+GENS1.nodes[21]['Activity'] = 'Supernatants ready for use on the EasyMag'
+GENS1.nodes[22]['Activity'] = 'Dispose using CL3 route'
+GENS1.nodes[23]['Activity'] = 'Dispose using CL2 route'
+
+
+
+# #PLAG#######################
+# json.dump(dict(nodes=[[n, GENS1.node[n]] for n in GENS1.nodes()],
+#                edges=[[u, v, GENS1.get_edge_data[u][v]] for u,v in GENS1.edges()]),
+#           open('asdf', 'w'), indent=2)
+#
+# GENS1 = nx.DiGraph()
+# d = json.load(open('asdf'))
+# GENS1.add_nodes_from(d['nodes'])
+# GENS1.add_edges_from(d['edges'])
+# ############PLAG#########################
 ########################################################################################################################
 
 #Graph Nodes
@@ -99,13 +153,13 @@ GENS3 = nx.DiGraph(name="GENS3")
 GENS3.add_edges_from([(0, 1), (0, 18), (1, 2), (2, 3), (3, 4), (4, 6), (4, 5),(5, 19), (6, 7), (7, 8), (8, 9), (9, 10), (10, 11), (11, 12), (12, 13), (12, 15), (13, 14),  (14, 19), (15, 16), (16,17), (17, 19), (18,7)])
 
 ########################################################################################################################
-
 #Graph Nodes
 PM1 = nx.DiGraph(name="PM1")
 
 #Graph edges
 PM1.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 4), (3, 9), (4, 5), (4, 8), (5, 6), (6, 7), (6, 8), (7, 11), (8, 11), (9, 10), (10, 11)])
 
+#Node activity's
 PM1.nodes[0]['Activity'] ='Faeces / perianal swabs / artefacts arrive in reception placed in plastic box'
 PM1.nodes[1]['Activity'] = 'Box sealed and transported from reception through corridors on A-floor / up internal stairs to Enterics'
 PM1.nodes[2]['Activity'] ='MLA staff check specimen details against request and code sample'
@@ -148,14 +202,14 @@ class DiGraphUI:
 
     def graphDrawGen(self):
         for key, value in self.graph.items():
-            print(key, value)
             graphName = value
-            print(graphName)
         write_dot(self, 'SOP/' + graphName + '.gv')
         render('dot', 'png', 'SOP/' + graphName + '.gv')
         graphListPos = nx.nx_pydot.pydot_layout(self, prog='dot')
-        nx.draw(self, graphListPos, with_labels=True)
-        plt.savefig('SOP/' + graphName + '.png', dpi=1000)
+        edge_labels = nx.get_edge_attributes(self, 'choice')
+        nx.draw_networkx_edge_labels(self, graphListPos, edge_labels=edge_labels, font_size=4)
+        nx.draw(self, graphListPos, with_labels=True, node_size=150, font_size=8)
+        plt.savefig('SOP/' + graphName + '.png', dpi=1000, bbox_inches='tight', pad_inches = 0, transparent = True)
         plt.clf()
 
     def UIGraph(self):
@@ -187,8 +241,19 @@ class DiGraphUI:
         graphCanvas.pack()
         graphCanvas.pack(fill=BOTH, expand=1)
 
-        ####################################################
+        #Menu UI#####################################
+        # Create the main menu object
+        main_menu = Menu(root)
+        # ----- VIEW MENU -----
+        open_menu = Menu(main_menu, tearoff=0)
 
+        # Add the pull down menu to the menu bar
+        main_menu.add_cascade(label="Open", menu=open_menu)
+
+        # Display the menu bar
+        root.config(menu=main_menu)
+
+        #Graph UI#########################################################
         pydotLayout = (nx.nx_pydot.pydot_layout(self, prog='dot'))
         maxWidth = 0
         maxHeight = 0
@@ -196,6 +261,7 @@ class DiGraphUI:
         paddedHeight = height - (height / 8)
         frameGraphLayout = {}
 
+        #Calculate dimensions of DiGraph
         for node in pydotLayout:
             x = pydotLayout[node][0]
             if (x > maxWidth):
@@ -204,6 +270,7 @@ class DiGraphUI:
             if (y > maxHeight):
                 maxHeight = y
 
+        # Insert nodes as labels
         for node in pydotLayout:
             x = pydotLayout[node][0]
             xRel = (x) * (paddedFrameWidth / maxWidth)
@@ -214,49 +281,69 @@ class DiGraphUI:
             widget.place(x=xRel, y=yRel)
             frameGraphLayout[node]=xRel,yRel
 
+        #
+        edge_labels = nx.get_edge_attributes(self, 'choice')
+        for node, yesNo in edge_labels.items():
+            startLabelNode = node[0]
+            endLabelNode = node[1]
 
+            startLabelNodeX = frameGraphLayout[startLabelNode][0]
+            startLabelNodeY = frameGraphLayout[startLabelNode][1]
+            endLabelNodeX = frameGraphLayout[endLabelNode][0]
+            endLabelNodeY = frameGraphLayout[endLabelNode][1]
+
+            avgLabelNodeX = (startLabelNodeX+endLabelNodeX)/2
+            avgLabelNodeY = (startLabelNodeY+endLabelNodeY)/2
+
+            edgeLabel = Label(graphCanvas, text=yesNo, fg='black', bg='white')
+            edgeLabel.place(x=avgLabelNodeX, y=avgLabelNodeY)
+
+        #Insert edges as arrows
         edgeList = list(self.edges)
+        #Iterate through edge list
         for edge in edgeList:
             startNode = edge[0]
             endNode = edge[1]
-
+            #Set edge nodes coordinates
             startNodeX = frameGraphLayout[startNode][0]
             startNodeY = frameGraphLayout[startNode][1]
             endNodeX = frameGraphLayout[endNode][0]
             endNodeY = frameGraphLayout[endNode][1]
-            # print ("BEGIN - " + str(startNodeX) + " " + str(startNodeY))
-            # print ("END - " + str(endNodeX) + " " + str(endNodeY))
-
+            #Draw edge/arrow
             graphCanvas.create_line(startNodeX, startNodeY, endNodeX, endNodeY, arrow=LAST)
 
+
+
+        #Acivity UI
         UIActivities(self)
 
         #Complexity UI
         complexityHeader = Label(complexFrame, text = "Complexity measures", font=("TkDefaultFont", 25), bg='white')
-        complexityHeader.place(x=sideFrameWidth/2, y=height/20, anchor="center")
+        complexityHeader.place(x=sideFrameWidth/2, y=(height/16), anchor="center")
 
         cyclomaticNumberVal = cyclomaticNumber(self)
         cyclomaticLabel = Label(complexFrame, text = ("Cyclomatic complexity \n" + str(cyclomaticNumberVal)), bg='white',
                                 font=("TkDefaultFont", 20))
-        cyclomaticLabel.place(x=sideFrameWidth/2, y=height/8, anchor="center")
+        cyclomaticLabel.place(x=sideFrameWidth / 2, y=2*(height/8), anchor="center")
 
         restrictivenessVal = restrictiveness(self)
         restrictivenessLabel = Label(complexFrame, text=("Restrictiveness estimator\n" + str(restrictivenessVal)), bg='white',
                                 font=("TkDefaultFont", 20))
-        restrictivenessLabel.place(x=sideFrameWidth / 2, y=2*(height/8), anchor="center")
+        restrictivenessLabel.place(x=sideFrameWidth / 2, y=4 * (height / 8), anchor="center")
 
+        numberofTreesVal = numberOfTrees(self)
+        numberofTreesLabel = Label(complexFrame, text=("Number of trees\n" + str(numberofTreesVal)),
+                                     bg='white',
+                                     font=("TkDefaultFont", 20))
+        numberofTreesLabel.place(x=sideFrameWidth / 2, y=6 * (height / 8), anchor="center")
         root.mainloop()
 
-#To work with class, must be outside of class?
-#ASK JAMIE
-    # UI for activities :
 def UIActivities(self):
     listBox = Listbox()
     activityList = self.nodes
     for activity in activityList:
         sys.stdout.write(str(activity) + " - ")
         sys.stdout.flush()
-        print(self.nodes[activity]['Activity'])
         listBox.insert(activity, str(activity) + " - " + self.nodes[activity]['Activity'])
     listBox.grid(row=0, column=0, sticky="nsew")
 
@@ -347,10 +434,11 @@ def restrictiveness(self):
             reachabilityList.append(eachValue)
 
     restrictivenessEstimator = (((2*(sum(reachabilityList)))-6*(nodeNum-1))/((nodeNum-2)*(nodeNum-3)))
+    #Round to 3 decimal place - Update to sig fig?????
+    restrictivenessEstimator = round(restrictivenessEstimator, 3)
     return restrictivenessEstimator
 
 def numberOfTrees(self):
-    nodeNum = (self.number_of_nodes())
     #Matrix for diagonal array?
     diagArray = copy.deepcopy(adjacencyArray)
 
@@ -369,12 +457,22 @@ def numberOfTrees(self):
         dArray[i][i] = copy.deepcopy(diagArray[i][i])
 
     numpyArray = np.array(dArray)
+    for i in range(len(diagArray)):
+        diagArray[i][i] = sum(diagArray[i])
 
-    ########HARD CODED TO FINAL VALUE ATM
-    numpyArray = np.delete(numpyArray, (21), axis=0)
-    numpyArray = np.delete(numpyArray, (21), axis=1)
-    print("PLS")
-    print(np.linalg.det(numpyArray))
+    #Networkx has no function to calculate sink node
+    #However the sink node will have an adjacency of 0
+    #We can use this to determine the sink node
+    for i in range(len(adjacencyArray)):
+        if (sum(diagArray[i])) == 0:
+            sinkNode=i
+
+    #Calculate minor of sink node (delete row and column), creates minor matrix
+    numpyArray = np.delete(numpyArray, (sinkNode), axis=0)
+    numpyArray = np.delete(numpyArray, (sinkNode), axis=1)
+    #Number of trees = determinant of minor matrix
+    treeNumber = int(round((np.linalg.det(numpyArray)), 0))
+    return treeNumber
 
 # Simple output so that we can see the reachability array in CMD
     print("--------------------D MATRIX" + str(self) +" --------------------")
@@ -396,18 +494,17 @@ def numberOfTrees(self):
 ##############################PLAG################################################
 
 def main():
-
-    # print(type(PM1))
     # DiGraphUI.graphDrawGen(GENS3)
     # DiGraphUI.cyclomaticNumber(PM1)
     # DiGraphUI.restrictiveness(PM1)
-    DiGraphUI.UIGraph(graph2)
-    numberOfTrees(graph2)
+    DiGraphUI.UIGraph(GENS1)
     # DiGraphUI.Activities(PM1)
+    DiGraphUI.graphDrawGen(GENS1)
 
 if __name__ == "__main__":
     main()
 
 #SORT OUT CLASSES AND STUFF
-#SHARE VARIABLES BETWEEN METHODS
+#SHARE VARIABLES BETWEEN METHODS - Global?
 #COUNT FROM 0 OR 1?
+#CHECK ?s
