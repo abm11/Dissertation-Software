@@ -179,6 +179,8 @@ class DiGraphUI:
             sys.stdout.flush()
             listBox.insert(activity, str(activity) + " - " + self.nodes[activity]['Activity'])
         listBox.grid(row=0, column=0, sticky="nsew")
+        # Declare as lambda to stop unintended execution
+        root.protocol('WM_DELETE_WINDOW', lambda:sys.exit())
         root.mainloop()
 
     def cyclomaticNumber(self):
@@ -351,7 +353,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-#SORT OUT CLASSES AND STUFF
 #SHARE VARIABLES BETWEEN METHODS - Global?
 #COUNT FROM 0 OR 1? - 1
 #CHECK ?s
