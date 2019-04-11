@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import networkx as nx
-# DROP???
 from graphviz import render
 from tkinter import *
 from tkinter import Tk, Canvas, Frame, BOTH
@@ -9,58 +8,27 @@ import copy
 import numpy as np
 from tkinter.filedialog import askopenfilename
 from tkinter import Tk
+from win32api import GetMonitorInfo, MonitorFromPoint
 
-#####################PLAG##############################
-# try:
-#     import pygraphviz
-#     from networkx.drawing.nx_agraph import write_dot
-# except ImportError:
-#     try:
-#         import pydot
-#         from networkx.drawing.nx_pydot import write_dot
-#     except ImportError:
-#         print("Import Fail")
-#         raise
-#####################PLAG##########################################
 
 class DiGraphUI:
 
     def __init__(self, selectedGraph):
         self.selectedGraph = selectedGraph
 
-    def openGraph(self):
-        filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(("YAML files", "yaml"),))
-        root.destroy()
-        DiGraphUI.UIGraph(DiGraphUI.YAMLReader(filename))
-
-    def YAMLReader(filename):
-        YAMLGraph = nx.read_yaml(filename)
-        return YAMLGraph
-
-    def graphDrawGen(self):
-        for key, value in self.graph.items():
-            graphName = value
-        #Remove gv?
-        # write_dot(self, 'Image-Graphs/' + graphName + '.gv') DROP ????
-        render('dot', 'png', 'Image-Graphs/' + graphName + '.gv')
-        graphListPos = nx.nx_pydot.pydot_layout(self, prog='dot')
-        edge_labels = nx.get_edge_attributes(self, 'choice')
-        nx.draw_networkx_edge_labels(self, graphListPos, edge_labels=edge_labels, font_size=4)
-        nx.draw(self, graphListPos, with_labels=True, node_size=150, font_size=8)
-        plt.savefig('SOP/' + graphName + '.png', dpi=1000, bbox_inches='tight', pad_inches = 0, transparent = True)
-        plt.clf()
-
     def UIGraph(self):
         global root
         root = Tk()
-        root.title('Model Definition')
+        root.title('Graph Complexity - Visualiser and Calculator')
         root.state("zoomed")  # to make it full screen
-        root.title("Vehicle Window Fitting - Management System")
 
         # Values for obtaining scree size
+        monitor_info = GetMonitorInfo(MonitorFromPoint((0, 0)))
+        work_area = monitor_info.get("Work")
         width = root.winfo_screenwidth()
-        height = root.winfo_screenheight()
-        root.geometry('%sx%s' % (width, height))
+        # Returns hiegh of window minus task bar and title bar
+        height = work_area[3]-50
+        # root.geometry('%sx%s' % (width, height))
 
         #Base values to ensure relative positioning within interface
         graphFrameWidth = width / 2
@@ -90,16 +58,17 @@ class DiGraphUI:
         main_menu.add_cascade(label="Graph", menu=open_menu)
         #Lambda functions stops recursive exe of methods
         open_menu.add_command(label="Open", command=lambda : DiGraphUI.openGraph(self))
-        open_menu.add_command(label="New", command=lambda : DiGraphUI.newGraph)
         # Display the menu bar
         root.config(menu=main_menu)
 
-        #Graph UI#########################################################
+        # Graph UI
+        # Sizes relative ot the display resolutiona re used to ensure UI deign works across multiple display resolutions
         pydotLayout = (nx.nx_pydot.pydot_layout(self, prog='dot'))
         maxWidth = 0
         maxHeight = 0
+
         paddedFrameWidth = graphFrameWidth - (graphFrameWidth / 8)
-        paddedHeight = height - (height / 8)
+        paddedHeight = height - (height / 25)
         frameGraphLayout = {}
 
         #Calculate dimensions of DiGraph
@@ -112,15 +81,19 @@ class DiGraphUI:
                 maxHeight = y
 
         # Insert nodes as labels
+        listBox = Listbox(root)
+        activityList = self.nodes
         for node in pydotLayout:
             x = pydotLayout[node][0]
             xRel = (x) * (paddedFrameWidth / maxWidth)
             y = pydotLayout[node][1]
-            yRel = (y) * (paddedHeight / maxHeight)
+            yRel = ((y) * (paddedHeight / maxHeight)) - (maxHeight / 200)
             yRel = paddedHeight - yRel
             widget = Label(graphCanvas, text=node, fg='white', bg='red')
             widget.place(x=xRel, y=yRel)
             frameGraphLayout[node]=xRel,yRel
+            ToolTipGen(widget, str(self.nodes[node]['Activity']))
+            print (str(self.nodes[node]['Activity']))
 
         edge_labels = nx.get_edge_attributes(self, 'choice')
         for node, yesNo in edge_labels.items():
@@ -153,24 +126,32 @@ class DiGraphUI:
             graphCanvas.create_line(startNodeX, startNodeY, endNodeX, endNodeY, arrow=LAST)
 
         #Complexity UI
+        graphName = Label(complexFrame, text = str(self), font=("TkDefaultFont", 25), bg='white')
+        graphName.place(x=sideFrameWidth / 2, y=(height / 16), anchor="center")
+
         complexityHeader = Label(complexFrame, text = "Complexity measures", font=("TkDefaultFont", 25), bg='white')
-        complexityHeader.place(x=sideFrameWidth/2, y=(height/16), anchor="center")
+        complexityHeader.place(x=sideFrameWidth / 2, y=2*(height / 16), anchor="center")
 
         cyclomaticNumberVal = DiGraphUI.cyclomaticNumber(self)
         cyclomaticLabel = Label(complexFrame, text = ("Cyclomatic complexity \n" + str(cyclomaticNumberVal)), bg='white',
                                 font=("TkDefaultFont", 20))
-        cyclomaticLabel.place(x=sideFrameWidth / 2, y=2*(height/8), anchor="center")
+        cyclomaticLabel.place(x=sideFrameWidth / 2, y=3*(height/8), anchor="center")
+        ToolTipGen(cyclomaticLabel, \
+                                    'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, '
+                                    'consectetur, adipisci velit. Neque porro quisquam est qui dolorem ipsum '
+                                    'quia dolor sit amet, consectetur, adipisci velit. Neque porro quisquam '
+                                    'est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.')
 
         restrictivenessVal = DiGraphUI.restrictiveness(self)
         restrictivenessLabel = Label(complexFrame, text=("Restrictiveness estimator\n" + str(restrictivenessVal)), bg='white',
                                 font=("TkDefaultFont", 20))
-        restrictivenessLabel.place(x=sideFrameWidth / 2, y=4 * (height / 8), anchor="center")
+        restrictivenessLabel.place(x=sideFrameWidth / 2, y=5 * (height / 8), anchor="center")
 
         numberofTreesVal = DiGraphUI.numberOfTrees(self)
         numberofTreesLabel = Label(complexFrame, text=("Number of trees\n" + str(numberofTreesVal)),
                                      bg='white',
                                      font=("TkDefaultFont", 20))
-        numberofTreesLabel.place(x=sideFrameWidth / 2, y=6 * (height / 8), anchor="center")
+        numberofTreesLabel.place(x=sideFrameWidth / 2, y=7 * (height / 8), anchor="center")
 
         listBox = Listbox(root)
         activityList = self.nodes
@@ -182,6 +163,19 @@ class DiGraphUI:
         # Declare as lambda to stop unintended execution
         root.protocol('WM_DELETE_WINDOW', lambda:sys.exit())
         root.mainloop()
+
+    def graphDrawGen(self):
+        for key, value in self.graph.items():
+            graphName = value
+        # Remove gv?
+        # write_dot(self, 'Image-Graphs/' + graphName + '.gv') DROP ????
+        render('dot', 'png', 'Image-Graphs/' + graphName + '.gv')
+        graphListPos = nx.nx_pydot.pydot_layout(self, prog='dot')
+        edge_labels = nx.get_edge_attributes(self, 'choice')
+        nx.draw_networkx_edge_labels(self, graphListPos, edge_labels=edge_labels, font_size=4)
+        nx.draw(self, graphListPos, with_labels=True, node_size=150, font_size=8)
+        plt.savefig('SOP/' + graphName + '.png', dpi=1000, bbox_inches='tight', pad_inches=0, transparent=True)
+        plt.clf()
 
     def cyclomaticNumber(self):
         nodeNum = (self.number_of_nodes())
@@ -272,7 +266,7 @@ class DiGraphUI:
 
         restrictivenessEstimator = (
                     ((2 * (sum(reachabilityList))) - 6 * (nodeNum - 1)) / ((nodeNum - 2) * (nodeNum - 3)))
-        # Round to 3 decimal place - Update to sig fig?????
+        # Round to 3 decimal place
         restrictivenessEstimator = round(restrictivenessEstimator, 3)
         return restrictivenessEstimator
 
@@ -333,20 +327,72 @@ class DiGraphUI:
     def YAMLGenerator(graph):
         nx.write_yaml(graph, "YAML-graphs/"+str(graph)+".YAML")
 
-    def newGraph(self):
-        window = Toplevel(root)
+    def YAMLReader(filename):
+        YAMLGraph = nx.read_yaml(filename)
+        return YAMLGraph
+
+    def openGraph(self):
+        filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(("YAML files", "yaml"),))
+        if filename == '':
+            return
+        root.destroy()
+        DiGraphUI.UIGraph(DiGraphUI.YAMLReader(filename))
+
+    ###################PLAG#####################
+class ToolTipGen(object):
+    def __init__(self, widget, text='widget info'):
+        self.waittime = 0  # miliseconds
+        self.wraplength = 200  # pixels
+        self.widget = widget
+        self.text = text
+        self.widget.bind("<Enter>", self.enter)
+        self.widget.bind("<Leave>", self.leave)
+        self.id = None
+        self.tw = None
+
+    def enter(self, event=None):
+        self.schedule()
+
+    def leave(self, event=None):
+        self.unschedule()
+        self.hideTip()
+
+    def schedule(self):
+        self.unschedule()
+        self.id = self.widget.after(self.waittime, self.showTip)
+
+    def unschedule(self):
+        id = self.id
+        self.id = None
+        if id:
+            self.widget.after_cancel(id)
+
+    def showTip(self, event=None):
+        x = y = 0
+        x, y, cx, cy = self.widget.bbox("insert")
+        x += self.widget.winfo_rootx() +25
+        y += self.widget.winfo_rooty() +20
+        # creates a top level window
+        self.tw = Toplevel(self.widget)
+        # Leaves only the label and removes the app window
+        self.tw.wm_overrideredirect(True)
+        self.tw.wm_geometry("+%d+%d" % (x, y))
+        label = Label(self.tw, text=self.text, justify='left',
+                         background="#ffffff", relief='solid', borderwidth=1,
+                         wraplength=self.wraplength)
+        label.pack(ipadx=1)
+
+    def hideTip(self):
+        tw = self.tw
+        self.tw = None
+        if tw:
+            tw.destroy()
+#####################################
 
 def main():
 
-    # DiGraphUI.graphDrawGen(GENS3)
-    # DiGraphUI.graphDrawGen(GENS3)
-    # DiGraphUI.cyclomaticNumber(GPM1)
-    # DiGraphUI.restrictiveness(GPM1)
-    # DiGraphUI.UIGraph(GENS1)
-    # DiGraphUI.Activities(GPM1)
-    # DiGraphUI.graphDrawGen(filename).
-    # YAMLGenerator()
     Tk().withdraw()
+    global filename
     filename = askopenfilename()
     DiGraphUI.UIGraph(DiGraphUI.YAMLReader(filename))
 
