@@ -41,7 +41,7 @@ class DiGraphUI:
         # Create the main container (Super container)
         desc_frame = Frame(root, width=side_frame_width, height=height)
         graph_frame = Frame(root, width=graph_frame_width, height=height)
-        complex_frame = Frame(root, bg = 'white', width=side_frame_width, height=height)
+        complex_frame = Frame(root, bg='white', width=side_frame_width, height=height)
 
         # Arrange frames
         desc_frame.grid(row=0, column=0)
@@ -49,9 +49,9 @@ class DiGraphUI:
         complex_frame.grid(row=0, column=2)
 
         # Build canvas - used to display directed graph
-        graphCanvas = Canvas(graph_frame, bg='white', width=width / 2, height=height)
-        graphCanvas.pack()
-        graphCanvas.pack(fill=BOTH, expand=1)
+        graph_canvas = Canvas(graph_frame, bg='white', width=width / 2, height=height)
+        graph_canvas.pack()
+        graph_canvas.pack(fill=BOTH, expand=1)
 
         # Create the main menu object
         main_menu = Menu(root)
@@ -60,7 +60,7 @@ class DiGraphUI:
         # Add the pull down menu to the menu bar
         main_menu.add_cascade(label="Graph", menu=open_menu)
         # Lambda functions stops recursive exe of methods
-        open_menu.add_command(label="Open", command=lambda : DiGraphUI.open_graph(self))
+        open_menu.add_command(label="Open", command=lambda:DiGraphUI.open_graph(self))
         # Display the menu bar
         root.config(menu=main_menu)
 
@@ -73,7 +73,7 @@ class DiGraphUI:
         max_height = 0
         pydot_layout = (nx.nx_pydot.pydot_layout(self, prog='dot'))
         # Calculate dimensions of DiGraph, to build/size TkInter interface
-        # No library function for it, so must extract values manuallElementsy
+        # No library function for it, so must extract values manually
         for node in pydot_layout:
             x = pydot_layout[node][0]
             if x > max_width:
@@ -92,13 +92,13 @@ class DiGraphUI:
             y_relative = (y * (padded_height / max_height)) - (max_height / 200)
             y_relative = padded_height - y_relative
             # Set visuals/aesthetics
-            widget = Label(graphCanvas, text=node, fg='white', bg='red')
+            widget = Label(graph_canvas, text=node, fg='white', bg='red')
             widget.place(x=x_relative, y=y_relative)
-            frame_graph_layout[node]=x_relative,y_relative
+            frame_graph_layout[node] = x_relative, y_relative
             # Add tool tip to label/node
             ToolTipGen(widget, str(self.nodes[node]['Activity']))
 
-        # Extract choice variables (yes/no edges) from networkx graph
+        # Extract choice variables (yes/no edges) from NetworkX graph
         edge_labels = nx.get_edge_attributes(self, 'choice')
         for node, yesNo in edge_labels.items():
             # Extract x and y location, then set relative location in TkInter interface
@@ -111,7 +111,7 @@ class DiGraphUI:
             avg_label_node_x = (start_label_node_x+end_label_node_x)/2
             avg_label_node_y = (start_label_node_y+end_label_node_y)/2
             # Set visuals/aesthetics
-            edge_label = Label(graphCanvas, text=yesNo, fg='black', bg='white')
+            edge_label = Label(graph_canvas, text=yesNo, fg='black', bg='white')
             edge_label.place(x=avg_label_node_x, y=avg_label_node_y)
 
         # Insert edges as arrows
@@ -126,21 +126,21 @@ class DiGraphUI:
             end_node_x = frame_graph_layout[end_node][0]
             end_node_y = frame_graph_layout[end_node][1]
             # Draw edge/arrow
-            graphCanvas.create_line(start_node_x, start_node_y, end_node_x, end_node_y, arrow=LAST)
+            graph_canvas.create_line(start_node_x, start_node_y, end_node_x, end_node_y, arrow=LAST)
 
         ################################################################################################################
         #                                       Complexity UI
         # Add graph name to complexity UI space
-        graph_name = Label(complex_frame, text = str(self), font=("TkDefaultFont", 25), bg='white')
+        graph_name = Label(complex_frame, text=str(self), font=("TkDefaultFont", 25), bg='white')
         graph_name.place(x=side_frame_width / 2, y=(height / 16), anchor="center")
 
         # Add complexity header/title
-        complexity_header = Label(complex_frame, text = "Complexity measures", font=("TkDefaultFont", 25), bg='white')
+        complexity_header = Label(complex_frame, text="Complexity measures", font=("TkDefaultFont", 25), bg='white')
         complexity_header.place(x=side_frame_width / 2, y=2*(height / 16), anchor="center")
 
         # Add cylcomatic number + UI for it
         cyclomatic_number_val = DiGraphUI.cyclomatic_number(self)
-        cyclomatic_label = Label(complex_frame, text = ("Cyclomatic complexity \n" + str(cyclomatic_number_val)),
+        cyclomatic_label = Label(complex_frame, text=("Cyclomatic complexity \n" + str(cyclomatic_number_val)),
                                  bg='white', font=("TkDefaultFont", 20))
         cyclomatic_label.place(x=side_frame_width / 2, y=3*(height/8), anchor="center")
         ToolTipGen(cyclomatic_label, 'A measure of connectedness of the graph.')
@@ -151,8 +151,8 @@ class DiGraphUI:
                                       bg='white', font=("TkDefaultFont", 20))
         restrictiveness_label.place(x=side_frame_width / 2, y=5 * (height / 8), anchor="center")
         ToolTipGen(restrictiveness_label, 'A measure of complexity, in respect to RCPSP.\n'
-                                          'With RCPSP being related to limited resources for activities of known'
-                                          ' durations, linked by precedence relations.')
+                                           'With RCPSP being related to limited resources for activities of known'
+                                           ' durations, linked by precedence relations.')
 
         # Add number of trees+ UI for it
         number_of_trees_val = DiGraphUI.number_of_trees(self)
@@ -169,12 +169,12 @@ class DiGraphUI:
         activity_list = self.nodes
         # Iterate/extract activities, insert into UI box
         for activity in activity_list:
-            sys.stdout.write(str(activity) + " - ")
-            sys.stdout.flush()
+            # sys.stdout.write(str(activity) + " - ")
+            # sys.stdout.flush()
             list_box.insert(activity, str(activity) + " - " + self.nodes[activity]['Activity'])
         list_box.grid(row=0, column=0, sticky="nsew")
         # Declare as lambda to stop unintended execution
-        root.protocol('WM_DELETE_WINDOW', lambda:sys.exit())
+        root.protocol('WM_DELETE_WINDOW', lambda: sys.exit())
         root.mainloop()
 
     # Disused method for plotting graph in matplotlib, may be useful for for 
@@ -260,8 +260,8 @@ class DiGraphUI:
         # x_axis = 0
         # sys.stdout.write("\t")
         # sys.stdout.flush()
-        # for eachColumm in range(node_num):
-        #     sys.stdout.write(str(eachColumm) + "\t")
+        # for eachcolumn in range(node_num):
+        #     sys.stdout.write(str(eachcolumn) + "\t")
         #     sys.stdout.flush()
         # print()
         # for eachRow in adjacencyArray:
@@ -277,8 +277,8 @@ class DiGraphUI:
         # print("--------------------REACHABILITY MATRIX " + str(self) + " --------------------")
         # sys.stdout.write("\t")
         # sys.stdout.flush()
-        # for eachColumm in range(node_num):
-        #     sys.stdout.write(str(eachColumm) + "\t")
+        # for eachcolumn in range(node_num):
+        #     sys.stdout.write(str(eachcolumn) + "\t")
         #     sys.stdout.flush()
         # print()
         # for eachRow in reachability_array:
@@ -321,8 +321,8 @@ class DiGraphUI:
             diag_array[i][i] = sum(diag_array[i])
 
         # Calculate minor of sink node (delete row and column), creates minor matrix
-        numpy_array = np.delete(numpy_array, (sink_node), axis=0)
-        numpy_array = np.delete(numpy_array, (sink_node), axis=1)
+        numpy_array = np.delete(numpy_array, sink_node, axis=0)
+        numpy_array = np.delete(numpy_array, sink_node, axis=1)
         # Number of trees = determinant of minor matrix
         tree_number = int(round((np.linalg.det(numpy_array)), 0))
         return tree_number
@@ -333,8 +333,8 @@ class DiGraphUI:
         # x_axis = 0
         # sys.stdout.write("\t")
         # sys.stdout.flush()
-        # for eachColumm in range(node_num):
-        #     sys.stdout.write(str(eachColumm) + "\t")
+        # for eachcolumn in range(node_num):
+        #     sys.stdout.write(str(eachcolumn) + "\t")
         #     sys.stdout.flush()
         # print()
         # for eachRow in numpy_array:
@@ -363,56 +363,60 @@ class DiGraphUI:
         DiGraphUI.ui_graph(DiGraphUI.yaml_reader(file_name))
 
 
-    ###################PLAG#####################
+# Class for tooltip
 class ToolTipGen(object):
-    def __init__(self, widget, text='widget info'):
-        self.waittime = 0  # miliseconds
-        self.wraplength = 200  # pixels
-        self.widget = widget
+    def __init__(self, widget, text=None):
         self.text = text
-        self.widget.bind("<Enter>", self.enter)
-        self.widget.bind("<Leave>", self.leave)
-        self.id = None
-        self.tw = None
+        self.widget = widget
+        # Bind widgets to self
+        self.widget.bind("<Enter>", self.arrive)
+        self.widget.bind("<Leave>", self.depart)
+        self.identity = None
+        self.top_window = None
 
-    def enter(self, event=None):
-        self.schedule()
+    # Respond to mouse entering widget space
+    def arrive(self, blank=None):
+        self.plan()
 
-    def leave(self, event=None):
-        self.unschedule()
-        self.hideTip()
+    # Respond to mouse leaving widget space
+    def depart(self, blank=None):
+        self.remove_plan()
+        self.hide_tooltip()
 
-    def schedule(self):
-        self.unschedule()
-        self.id = self.widget.after(self.waittime, self.showTip)
+    # Schedule events
+    def plan(self):
+        self.remove_plan()
+        self.identity = self.widget.after(0, self.display_tooltip)
 
-    def unschedule(self):
-        id = self.id
-        self.id = None
-        if id:
-            self.widget.after_cancel(id)
+    # Remove schedule events
+    def remove_plan(self):
+        identity = self.identity
+        self.identity = None
+        if identity:
+            self.widget.after_cancel(identity)
 
-    def showTip(self, event=None):
-        x = y = 0
-        x, y, cx, cy = self.widget.bbox("insert")
-        x += self.widget.winfo_rootx() +25
-        y += self.widget.winfo_rooty() +20
-        # creates a top level window
-        self.tw = Toplevel(self.widget)
-        # Leaves only the label and removes the app window
-        self.tw.wm_overrideredirect(True)
-        self.tw.wm_geometry("+%d+%d" % (x, y))
-        label = Label(self.tw, text=self.text, justify='left',
-                         background="#ffffff", relief='solid', borderwidth=1,
-                         wraplength=self.wraplength)
-        label.pack(ipadx=1)
+    # Display tooltip
+    def display_tooltip(self, blank=None):
+        # Set/declare variables
+        x, y, x1, y2 = self.widget.bbox("insert")
+        y += self.widget.winfo_rooty() + 20
+        x += self.widget.winfo_rootx() + 25
+        # Insert a top window
+        self.top_window = Toplevel(self.widget)
+        # Remove window, while leaving label
+        self.top_window.wm_overrideredirect(1)
+        self.top_window.wm_geometry("+%d+%d" % (x, y))
+        # Generate label
+        label = Label(self.top_window, background="#ffffff", borderwidth=1, justify="left",
+                         wraplength=150, relief='solid', text=self.text)
+        label.pack()
 
-    def hideTip(self):
-        tw = self.tw
-        self.tw = None
-        if tw:
-            tw.destroy()
-#####################################
+    # Remove tooltip
+    def hide_tooltip(self):
+        top_window = self.top_window
+        self.top_window = None
+        if top_window:
+            top_window.destroy()
 
 
 def main():
