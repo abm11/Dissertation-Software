@@ -6,7 +6,7 @@ from tkinter import Tk, Canvas, Frame, BOTH
 from tkinter import filedialog
 import copy
 import numpy as np
-from tkinter.filedialog import askopenfile_name
+from tkinter.filedialog import askopenfilename
 from tkinter import Tk
 from win32api import GetMonitorInfo, MonitorFromPoint
 
@@ -355,7 +355,7 @@ class DiGraphUI:
         return yaml_graph
 
     def open_graph(self):
-        file_name = filedialog.askopenfile_name(initialdir="/", title="Select file", filetypes=(("YAML files", "yaml"),))
+        file_name = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(("YAML files", "yaml"),))
         # If user closes window, '' is returned, if statement to catch this and stop the software closing
         if file_name == '':
             return
@@ -414,12 +414,13 @@ class ToolTipGen(object):
             tw.destroy()
 #####################################
 
-def main():
 
+def main():
     Tk().withdraw()
     global file_name
-    file_name = askopenfile_name()
+    file_name = askopenfilename()
     DiGraphUI.ui_graph(DiGraphUI.yaml_reader(file_name))
+
 
 if __name__ == "__main__":
     main()
