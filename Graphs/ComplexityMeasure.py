@@ -310,15 +310,12 @@ class DiGraphUI:
         # NetworkX has no function to calculate sink node (terminating node in graph)
         # However the sink node will have an adjacency of 0
         # We can use this to determine the sink node
-        for i in range(len(adjacency_array)):
+        for i in range(len(diag_array)):
             if (sum(diag_array[i])) == 0:
                 sink_node = i
 
         # Convert array to numpy to carry out minor and determinant
         numpy_array = np.array(d_array)
-        for i in range(len(diag_array)):
-            diag_array[i][i] = sum(diag_array[i])
-
         # Calculate minor of sink node (delete row and column), creates minor matrix
         numpy_array = np.delete(numpy_array, sink_node, axis=0)
         numpy_array = np.delete(numpy_array, sink_node, axis=1)
