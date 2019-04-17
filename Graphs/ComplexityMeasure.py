@@ -7,7 +7,6 @@ from tkinter import filedialog
 import copy
 import numpy as np
 from tkinter.filedialog import askopenfilename
-from tkinter import Tk
 from win32api import GetMonitorInfo, MonitorFromPoint
 
 
@@ -150,9 +149,9 @@ class DiGraphUI:
         restrictiveness_label = Label(complex_frame, text=("Restrictiveness estimator\n" + str(restrictiveness_val)),
                                       bg='white', font=("TkDefaultFont", 20))
         restrictiveness_label.place(x=side_frame_width / 2, y=5 * (height / 8), anchor="center")
-        ToolTipGen(restrictiveness_label, 'A measure of complexity, in respect to RCPSP.\n'
-                                           'With RCPSP being related to limited resources for activities of known'
-                                           ' durations, linked by precedence relations.')
+        ToolTipGen(restrictiveness_label, 'A measure of complexity, in regards to the arrangement of the processes.\n'
+                                          '0 - All processes are in parallel\n'
+                                          '1 - All processes are in series')
 
         # Add number of trees+ UI for it
         number_of_trees_val = DiGraphUI.number_of_trees(self)
@@ -184,10 +183,10 @@ class DiGraphUI:
             graph_name = value
         # write_dot(self, 'Image-Graphs/' + graph_name + '.gv') DROP ????
         render('dot', 'png', 'Image-Graphs/' + graph_name + '.gv')
-        graphListPos = nx.nx_pydot.pydot_layout(self, prog='dot')
+        graph_list_pos = nx.nx_pydot.pydot_layout(self, prog='dot')
         edge_labels = nx.get_edge_attributes(self, 'choice')
-        nx.draw_networkx_edge_labels(self, graphListPos, edge_labels=edge_labels, font_size=4)
-        nx.draw(self, graphListPos, with_labels=True, node_size=150, font_size=8)
+        nx.draw_networkx_edge_labels(self, graph_list_pos, edge_labels=edge_labels, font_size=4)
+        nx.draw(self, graph_list_pos, with_labels=True, node_size=150, font_size=8)
         plt.savefig('SOP/' + graph_name + '.png', dpi=1000, bbox_inches='tight', pad_inches=0, transparent=True)
         plt.clf()
 
@@ -201,29 +200,29 @@ class DiGraphUI:
     # Calculate and return restrictiveness estimator
     def restrictiveness(self):
         # Global access for number of trees calculation method
-        global adjacencyArray
+        global adjacency_array
         # Obtain list of edges
-        graphListEdges = (list(self.edges))
+        graph_list_edges = (list(self.edges))
         # Obtain number of nodes
         node_num = (self.number_of_nodes())
-        # Build 2D array of size node_num - Iterate through allElements values, setting them to 0 (no adjacency)
-        adjacencyArray = [[0 for x in range(node_num)] for y in range(node_num)]
+        # Build matrix of size node_num - Iterate through all_elements values, setting them to 0 (no adjacency)
+        adjacency_array = [[0 for x in range(node_num)] for y in range(node_num)]
         # Iterate through list of edges
-        for eachEdge in graphListEdges:
+        for each_edge in graph_list_edges:
             # Init coordinate list
             coord = []
             # Iterate through node pairs that compose edges
-            for eachNode in eachEdge:
+            for each_node in each_edge:
                 # Append node to list
-                coord.append(eachNode)
+                coord.append(each_node)
             # CallElements coordinate variables from co-ordinate list
             # then set each subsequent adjacency array value to 1 for each co-ordinate value pair
-            adjacencyArray[coord[0]][coord[1]] = 1
+            adjacency_array[coord[0]][coord[1]] = 1
 
         # Init the reachability matrix, using the adjacency array
-        reachability_array = [value[:] for value in adjacencyArray]
+        reachability_array = [value[:] for value in adjacency_array]
         # Select all nodes from the array
-        for allElements in range(len(reachability_array)):
+        for all_elements in range(len(reachability_array)):
             # Select all nodes as the start of the path
             for start in range(len(reachability_array)):
                 # Select all nodes as the end of the path
@@ -231,7 +230,7 @@ class DiGraphUI:
                     # If we are on the shortest path available from start node to end node,
                     # then update the reachability array (with 1)
                     reachability_array[start][end] = reachability_array[start][end] or (
-                                reachability_array[start][allElements] and reachability_array[allElements][end])
+                                reachability_array[start][all_elements] and reachability_array[all_elements][end])
 
         # Matrix is defined as the Reflexive transitive closure of the reachability matrix
         # Therefore a node can reach itself so set diagonal elements to 1
@@ -240,12 +239,12 @@ class DiGraphUI:
 
         x_axis = 0
         # Restrictiveness Estimator
-        # Convert reachability_array into 1D array/single list
+        # Convert reachability_array into a single list
         reachability_list = []
-        for eachRow in reachability_array:
+        for each_row in reachability_array:
             x_axis += 1
-            for eachValue in eachRow:
-                reachability_list.append(eachValue)
+            for each_value in each_row:
+                reachability_list.append(each_value)
 
         # Calculate definition of restrictiveness estimator
         restrictiveness_estimator = (
@@ -260,15 +259,15 @@ class DiGraphUI:
         # x_axis = 0
         # sys.stdout.write("\t")
         # sys.stdout.flush()
-        # for eachcolumn in range(node_num):
-        #     sys.stdout.write(str(eachcolumn) + "\t")
+        # for each_column in range(node_num):
+        #     sys.stdout.write(str(each_column) + "\t")
         #     sys.stdout.flush()
         # print()
-        # for eachRow in adjacencyArray:
+        # for each_row in adjacency_array:
         #     sys.stdout.write(str(x_axis) + "\t")
         #     x_axis += 1
-        #     for eachValue in eachRow:
-        #         sys.stdout.write(str(eachValue) + "\t")
+        #     for each_value in each_row:
+        #         sys.stdout.write(str(each_value) + "\t")
         #         sys.stdout.flush()
         #     print()
 
@@ -277,29 +276,29 @@ class DiGraphUI:
         # print("--------------------REACHABILITY MATRIX " + str(self) + " --------------------")
         # sys.stdout.write("\t")
         # sys.stdout.flush()
-        # for eachcolumn in range(node_num):
-        #     sys.stdout.write(str(eachcolumn) + "\t")
+        # for each_column in range(node_num):
+        #     sys.stdout.write(str(each_column) + "\t")
         #     sys.stdout.flush()
         # print()
-        # for eachRow in reachability_array:
+        # for each_row in reachability_array:
         #     sys.stdout.write(str(x_axis) + "\t")
         #     x_axis += 1
-        #     for eachValue in eachRow:
-        #         sys.stdout.write(str(eachValue) + "\t")
+        #     for each_value in each_row:
+        #         sys.stdout.write(str(each_value) + "\t")
         #         sys.stdout.flush()
         #     print()
 
     # Calculate and return number of trees
     def number_of_trees(self):
         # Copy adjacency array
-        diag_array = copy.deepcopy(adjacencyArray)
+        diag_array = copy.deepcopy(adjacency_array)
 
         # Diagonal elements = Sum of row
         for i in range(len(diag_array)):
             diag_array[i][i] = sum(diag_array[i])
 
         # Set negative values
-        d_array = copy.deepcopy(adjacencyArray)
+        d_array = copy.deepcopy(adjacency_array)
         for i in range(len(d_array)):
             for j in range(len(d_array[i])):
                 d_array[i][j] = -(d_array[i][j])
@@ -311,7 +310,7 @@ class DiGraphUI:
         # NetworkX has no function to calculate sink node (terminating node in graph)
         # However the sink node will have an adjacency of 0
         # We can use this to determine the sink node
-        for i in range(len(adjacencyArray)):
+        for i in range(len(adjacency_array)):
             if (sum(diag_array[i])) == 0:
                 sink_node = i
 
@@ -333,21 +332,22 @@ class DiGraphUI:
         # x_axis = 0
         # sys.stdout.write("\t")
         # sys.stdout.flush()
-        # for eachcolumn in range(node_num):
-        #     sys.stdout.write(str(eachcolumn) + "\t")
+        # for each_column in range(node_num):
+        #     sys.stdout.write(str(each_column) + "\t")
         #     sys.stdout.flush()
         # print()
-        # for eachRow in numpy_array:
+        # for each_row in numpy_array:
         #     sys.stdout.write(str(x_axis) + "\t")
         #     x_axis += 1
-        #     for eachValue in eachRow:
-        #         sys.stdout.write(str(eachValue) + "\t")
+        #     for each_value in each_row:
+        #         sys.stdout.write(str(each_value) + "\t")
         #         sys.stdout.flush()
         #     print()
 
     # Call library function to generate yaml file of NetworkX graph
+    # Not implemented due to tie constraints
     def yaml_generator(graph):
-        nx.write_yaml(graph, "YAML-graphs/"+str(graph)+".YAML")
+        nx.write_yaml(graph, +str(graph)+".YAML")
 
     # Call library function to read and return yaml file of NetworkX graph
     def yaml_reader(file_name):
