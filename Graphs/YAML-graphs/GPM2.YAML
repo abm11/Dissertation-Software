@@ -1,0 +1,360 @@
+!!python/object:networkx.classes.digraph.DiGraph
+_adj: &id062
+  0:
+    1: &id001 {}
+  1:
+    2: &id002 {}
+    13: &id014 {}
+    17: &id019 {}
+    18: &id020 {}
+    31: &id033 {}
+  2:
+    3: &id003 {}
+  3:
+    4: &id004 {}
+  4:
+    5: &id005
+      choice: 'No'
+    6: &id006
+      choice: 'Yes'
+  5:
+    51: &id053 {}
+  6:
+    7: &id007
+      choice: 'No'
+    8: &id008
+      choice: 'Yes'
+  7:
+    51: &id054 {}
+  8:
+    9: &id009 {}
+  9:
+    10: &id010
+      choice: 'Yes'
+    11: &id011
+      choice: 'No'
+  10:
+    12: &id012 {}
+  11:
+    12: &id013 {}
+  12:
+    51: &id055 {}
+  13:
+    14: &id015 {}
+  14:
+    15: &id016 {}
+  15:
+    16: &id018 {}
+  16:
+    51: &id056 {}
+  17:
+    15: &id017 {}
+  18:
+    19: &id021 {}
+  19:
+    20: &id022 {}
+  20:
+    21: &id023 {}
+  21:
+    22: &id024
+      choice: 'No'
+    26: &id028
+      choice: 'Yes'
+  22:
+    23: &id025 {}
+  23:
+    24: &id026 {}
+  24:
+    25: &id027 {}
+  25:
+    51: &id057 {}
+  26:
+    27: &id029 {}
+  27:
+    28: &id030
+      choice: 'No'
+    29: &id031
+      choice: 'Yes'
+  28:
+    51: &id058 {}
+  29:
+    30: &id032 {}
+  30:
+    51: &id059 {}
+  31:
+    32: &id034 {}
+  32:
+    33: &id035 {}
+  33:
+    34: &id036 {}
+  34:
+    35: &id037 {}
+  35:
+    36: &id038 {}
+  36:
+    37: &id039 {}
+  37:
+    38: &id040 {}
+  38:
+    39: &id041 {}
+  39:
+    40: &id042
+      choice: 'No'
+    41: &id043
+      choice: 'Yes'
+  40:
+    51: &id060 {}
+  41:
+    42: &id044 {}
+  42:
+    43: &id045 {}
+  43:
+    44: &id046 {}
+  44:
+    45: &id047 {}
+  45:
+    46: &id048 {}
+  46:
+    47: &id049 {}
+  47:
+    48: &id050 {}
+  48:
+    49: &id051 {}
+  49:
+    50: &id052
+      choice: POS
+  50:
+    51: &id061 {}
+  51: {}
+_node: &id064
+  0:
+    Activity: "Check sample not leaked \u2013 unbag and label sample & consumables\
+      \ then transfer into the safety cabinet. If leaking transfer to safety cabinet\
+      \ before un-bagging."
+  1:
+    Activity: Transfer 1g of faeces to 5ml ringers and vortex
+  2:
+    Activity: "Inoculate \xBC CCDA and incubate MO2 for 48hrs"
+  3:
+    Activity: Suspicious grey/white colonies
+  4:
+    Activity: Oxidase Positive
+  5:
+    Activity: Discard into plate tin
+  6:
+    Activity: Carbol fuchsin stain (G-ve curved bacilli
+  7:
+    Activity: Discard into plate tin
+  8:
+    Activity: Typical morphology
+  9:
+    Activity: In-patient?
+  10:
+    Activity: Perform EUCAST
+  11:
+    Activity: 'Report '
+  12:
+    Activity: Stored 7 days in cold room then discarded in plate tin
+  13:
+    Activity: Decant 1ml suspension to Selenite broth incubate in O2 for 24 hrs
+  14:
+    Activity: Subculture to XLD & incubate in O2 for 24hrs
+  15:
+    Activity: "Suspicious colonies\n1.\tPink colony (black centre)\n2.\tPink colony\
+      \ (oxidase negative)"
+  16:
+    Activity: Follow appropriate process Map
+  17:
+    Activity: "Inoculate \xBD XLD and incubate in O2 for 24hrs"
+  18:
+    Activity: "Inoculate \xBD CTSMAC and incubate in O2 for 24hrs"
+  19:
+    Activity: Sorbitol negative, oxidase negative colonies on CTSMAC
+  20:
+    Activity: Transfer to Cat 3 B-floor Safety Cabinet in sealed box
+  21:
+    Activity: Transfer to Cat 3 B-floor Safety Cabinet in sealed box
+  22:
+    Activity: If Clinical details HUS then faeces sent to ref lab
+  23:
+    Activity: 1 x package in plastic HaysDx box. Decontaminate outside with 10% distil
+  24:
+    Activity: Transfer into cardboard outer box in CL2 (HaysDx box)
+  25:
+    Activity: Hays DX box transferred to bag outside micro reception.
+  26:
+    Activity: Subculture to chromogenic 0157 media incubate in O2 @37C for 24hrs
+  27:
+    Activity: Mauve colonies
+  28:
+    Activity: Discarded in plate tin CL3
+  29:
+    Activity: Make 2x NA slope & incubate 02 for 24hrs
+  30:
+    Activity: 1 x slope transfer to locked cabinet CL3 B Floor. Discard when ref lab
+      report is completed
+  31:
+    Activity: 'Air dry suspension on to a Multispot slide '
+  32:
+    Activity: Fix in Methanol for 3 mins
+  33:
+    Activity: Stain in Auramine phenol for 15 mins
+  34:
+    Activity: Wash in tap water
+  35:
+    Activity: Decolourise in acid/alcohol for 10 secs
+  36:
+    Activity: Wash in tap water
+  37:
+    Activity: Stain in Thiazine Red for 2 mins
+  38:
+    Activity: Air Dry & read on UV Microscope
+  39:
+    Activity: Positive
+  40:
+    Activity: Store Sample
+  41:
+    Activity: ZN Process Map
+  42:
+    Activity: Air dry suspension on to slide (medium thickness)
+  43:
+    Activity: Fix in Methanol for 3 mins
+  44:
+    Activity: Stain in cold Carbol fuchsin for 10 mins
+  45:
+    Activity: Wash in tap water
+  46:
+    Activity: Decolourise in 1% HCL for 10 seconds
+  47:
+    Activity: Wash in tap water
+  48:
+    Activity: Counterstain in 0.4% malachite green for 30 secs
+  49:
+    Activity: Read on Microscope
+  50:
+    Activity: Send original faeces to Ref lab in HaysDx box & report (CRY)
+  51:
+    Activity: END
+_pred:
+  0: {}
+  1:
+    0: *id001
+  2:
+    1: *id002
+  3:
+    2: *id003
+  4:
+    3: *id004
+  5:
+    4: *id005
+  6:
+    4: *id006
+  7:
+    6: *id007
+  8:
+    6: *id008
+  9:
+    8: *id009
+  10:
+    9: *id010
+  11:
+    9: *id011
+  12:
+    10: *id012
+    11: *id013
+  13:
+    1: *id014
+  14:
+    13: *id015
+  15:
+    14: *id016
+    17: *id017
+  16:
+    15: *id018
+  17:
+    1: *id019
+  18:
+    1: *id020
+  19:
+    18: *id021
+  20:
+    19: *id022
+  21:
+    20: *id023
+  22:
+    21: *id024
+  23:
+    22: *id025
+  24:
+    23: *id026
+  25:
+    24: *id027
+  26:
+    21: *id028
+  27:
+    26: *id029
+  28:
+    27: *id030
+  29:
+    27: *id031
+  30:
+    29: *id032
+  31:
+    1: *id033
+  32:
+    31: *id034
+  33:
+    32: *id035
+  34:
+    33: *id036
+  35:
+    34: *id037
+  36:
+    35: *id038
+  37:
+    36: *id039
+  38:
+    37: *id040
+  39:
+    38: *id041
+  40:
+    39: *id042
+  41:
+    39: *id043
+  42:
+    41: *id044
+  43:
+    42: *id045
+  44:
+    43: *id046
+  45:
+    44: *id047
+  46:
+    45: *id048
+  47:
+    46: *id049
+  48:
+    47: *id050
+  49:
+    48: *id051
+  50:
+    49: *id052
+  51:
+    5: *id053
+    7: *id054
+    12: *id055
+    16: *id056
+    25: *id057
+    28: *id058
+    30: *id059
+    40: *id060
+    50: *id061
+_succ: *id062
+adjlist_inner_dict_factory: &id063 !!python/name:builtins.dict ''
+adjlist_outer_dict_factory: *id063
+edge_attr_dict_factory: *id063
+graph:
+  name: GPM2
+node_dict_factory: *id063
+nodes: !!python/object:networkx.classes.reportviews.NodeView
+  _nodes: *id064

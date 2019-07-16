@@ -1,0 +1,147 @@
+!!python/object:networkx.classes.digraph.DiGraph
+_adj: &id024
+  0:
+    1: &id001 {}
+    8: &id008 {}
+    14: &id014 {}
+  1:
+    2: &id002 {}
+  2:
+    3: &id003 {}
+  3:
+    4: &id004 {}
+  4:
+    5: &id005 {}
+  5:
+    6: &id006 {}
+  6:
+    7: &id007 {}
+  7:
+    21: &id021 {}
+  8:
+    9: &id009 {}
+  9:
+    10: &id010 {}
+  10:
+    11: &id011 {}
+  11:
+    12: &id012 {}
+  12:
+    13: &id013 {}
+  13:
+    21: &id022 {}
+  14:
+    15: &id015 {}
+  15:
+    16: &id016 {}
+  16:
+    17: &id017 {}
+  17:
+    18: &id018 {}
+  18:
+    19: &id019 {}
+  19:
+    20: &id020 {}
+  20:
+    21: &id023 {}
+  21: {}
+_node: &id026
+  0:
+    Activity: DUMMY
+  1:
+    Activity: DUMMY
+  2:
+    Activity: DUMMY
+  3:
+    Activity: DUMMY
+  4:
+    Activity: DUMMY
+  5:
+    Activity: DUMMY
+  6:
+    Activity: DUMMY
+  7:
+    Activity: DUMMY
+  8:
+    Activity: DUMMY
+  9:
+    Activity: DUMMY
+  10:
+    Activity: DUMMY
+  11:
+    Activity: DUMMY
+  12:
+    Activity: DUMMY
+  13:
+    Activity: DUMMY
+  14:
+    Activity: DUMMY
+  15:
+    Activity: DUMMY
+  16:
+    Activity: DUMMY
+  17:
+    Activity: DUMMY
+  18:
+    Activity: DUMMY
+  19:
+    Activity: DUMMY
+  20:
+    Activity: DUMMY
+  21:
+    Activity: DUMMY
+_pred:
+  0: {}
+  1:
+    0: *id001
+  2:
+    1: *id002
+  3:
+    2: *id003
+  4:
+    3: *id004
+  5:
+    4: *id005
+  6:
+    5: *id006
+  7:
+    6: *id007
+  8:
+    0: *id008
+  9:
+    8: *id009
+  10:
+    9: *id010
+  11:
+    10: *id011
+  12:
+    11: *id012
+  13:
+    12: *id013
+  14:
+    0: *id014
+  15:
+    14: *id015
+  16:
+    15: *id016
+  17:
+    16: *id017
+  18:
+    17: *id018
+  19:
+    18: *id019
+  20:
+    19: *id020
+  21:
+    7: *id021
+    13: *id022
+    20: *id023
+_succ: *id024
+adjlist_inner_dict_factory: &id025 !!python/name:builtins.dict ''
+adjlist_outer_dict_factory: *id025
+edge_attr_dict_factory: *id025
+graph:
+  name: Graph 1
+node_dict_factory: *id025
+nodes: !!python/object:networkx.classes.reportviews.NodeView
+  _nodes: *id026

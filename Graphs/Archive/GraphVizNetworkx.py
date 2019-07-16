@@ -33,9 +33,9 @@ PM3.add_edges_from([(0, 1), (0,5), (0,16), (0,20), (0,29), (0,33), (0,42), (0,44
                     (44,45), (45,46), (46,47), (47,48), (48,49), (48,50), (49,51), (50,51)])
 
 
-write_dot(PM3, "SOP/PM3.gv")
-render('dot', 'png', 'SOP/PM3.gv')
-
+# write_dot(PM3, "SOP/PM3.gv")
+# render('dot', 'png', 'SOP/PM3.gv')
+#
 # pos = nx.nx_pydot.pydot_layout(PM3)
 pos = nx.nx_pydot.pydot_layout(PM3, prog='dot')
 

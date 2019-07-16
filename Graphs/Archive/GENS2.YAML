@@ -1,0 +1,125 @@
+!!python/object:networkx.classes.digraph.DiGraph
+_adj: &id020
+  0:
+    1: &id001 {}
+    7: &id007 {}
+  1:
+    2: &id002 {}
+  2:
+    3: &id003 {}
+  3:
+    4: &id004 {}
+  4:
+    5: &id005 {}
+    6: &id006 {}
+  5:
+    16: &id017 {}
+  6:
+    8: &id008 {}
+  7:
+    8: &id009 {}
+  8:
+    9: &id010 {}
+  9:
+    10: &id011 {}
+  10:
+    11: &id012 {}
+  11:
+    12: &id013 {}
+  12:
+    13: &id014 {}
+    14: &id015 {}
+  13:
+    16: &id018 {}
+  14:
+    15: &id016 {}
+  15:
+    16: &id019 {}
+  16: {}
+_node: &id022
+  0:
+    Activity: START
+  1:
+    Activity: Culture negative stools spiked with CL2 pathogens from ENS1
+  2:
+    Activity: CL2 pathogen from -80 stocks inoculated onto CLED, incubated O2 for
+      24h
+  3:
+    Activity: Locate large volume culture negative stool and aliquot 0.5mL into a
+      sterile microcentrifuge tube.
+  4:
+    Activity: "Select 1 \u2013 2 well isolated colonies and inoculate the stool using\
+      \ a swirling motion to mix the sample"
+  5:
+    Activity: "Freeze at -20\xB0C for future use on BD Max"
+  6:
+    Activity: Use sample preparation on the same day for EasyMag extraction
+  7:
+    Activity: Class 1 safety cabinet is cleaned with Trigene followed by DNAzap
+  8:
+    Activity: 1mL STAR buffer to a sterile molecular grade microcentrifuge tube.  Add
+      100uL liquid stool or rice sized portion if solid.  Vortex for 1 min
+  9:
+    Activity: Incubate for 15 min at room temperature, vortex after ~7 min and at
+      15 min.
+  10:
+    Activity: Centrifuge for 2 min at 6500rpm.
+  11:
+    Activity: Allow to stand at RT for 5 min
+  12:
+    Activity: Transfer 500uL of supernatant into a new a sterile molecular grade microcentrifuge
+      tube.
+  13:
+    Activity: Supernatants ready for use on the EasyMag
+  14:
+    Activity: Dispose of remaining buffer/stool mixtures in bio-bin
+  15:
+    Activity: Dispose using CL2 route
+  16:
+    Activity: END
+_pred:
+  0: {}
+  1:
+    0: *id001
+  2:
+    1: *id002
+  3:
+    2: *id003
+  4:
+    3: *id004
+  5:
+    4: *id005
+  6:
+    4: *id006
+  7:
+    0: *id007
+  8:
+    6: *id008
+    7: *id009
+  9:
+    8: *id010
+  10:
+    9: *id011
+  11:
+    10: *id012
+  12:
+    11: *id013
+  13:
+    12: *id014
+  14:
+    12: *id015
+  15:
+    14: *id016
+  16:
+    5: *id017
+    13: *id018
+    15: *id019
+_succ: *id020
+adjlist_inner_dict_factory: &id021 !!python/name:builtins.dict ''
+adjlist_outer_dict_factory: *id021
+edge_attr_dict_factory: *id021
+graph:
+  name: GENS2
+node_dict_factory: *id021
+nodes: !!python/object:networkx.classes.reportviews.NodeView
+  _nodes: *id022

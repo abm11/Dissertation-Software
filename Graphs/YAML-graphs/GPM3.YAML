@@ -1,0 +1,362 @@
+!!python/object:networkx.classes.digraph.DiGraph
+_adj: &id064
+  0:
+    1: &id001 {}
+    5: &id005 {}
+    16: &id017 {}
+    20: &id021 {}
+    29: &id030 {}
+    33: &id034 {}
+    42: &id043 {}
+    44: &id045 {}
+  1:
+    2: &id002 {}
+  2:
+    3: &id003 {}
+  3:
+    4: &id004 {}
+  4:
+    51: &id052 {}
+  5:
+    6: &id006 {}
+  6:
+    7: &id007 {}
+  7:
+    8: &id008 {}
+  8:
+    9: &id009 {}
+  9:
+    10: &id010 {}
+    11: &id011 {}
+  10:
+    51: &id053 {}
+  11:
+    12: &id012
+      choice: and
+    13: &id013 {}
+  12:
+    13: &id014 {}
+  13:
+    14: &id015 {}
+    15: &id016 {}
+  14:
+    51: &id054 {}
+  15:
+    51: &id055 {}
+  16:
+    17: &id018 {}
+  17:
+    18: &id019 {}
+  18:
+    19: &id020 {}
+  19:
+    51: &id056 {}
+  20:
+    21: &id022 {}
+  21:
+    22: &id023 {}
+  22:
+    23: &id024 {}
+  23:
+    24: &id025 {}
+  24:
+    25: &id026 {}
+  25:
+    26: &id027 {}
+  26:
+    27: &id028 {}
+  27:
+    28: &id029 {}
+  28:
+    51: &id057 {}
+  29:
+    30: &id031 {}
+  30:
+    31: &id032 {}
+  31:
+    32: &id033 {}
+  32:
+    51: &id058 {}
+  33:
+    34: &id035 {}
+  34:
+    35: &id036 {}
+  35:
+    36: &id037 {}
+  36:
+    37: &id038 {}
+  37:
+    38: &id039 {}
+  38:
+    39: &id040 {}
+    40: &id041 {}
+  39:
+    51: &id059 {}
+  40:
+    41: &id042 {}
+  41:
+    51: &id060 {}
+  42:
+    43: &id044 {}
+  43:
+    51: &id061 {}
+  44:
+    45: &id046 {}
+  45:
+    46: &id047 {}
+  46:
+    47: &id048 {}
+  47:
+    48: &id049 {}
+  48:
+    49: &id050
+      choice: Neg
+    50: &id051
+      choice: Pos
+  49:
+    51: &id062 {}
+  50:
+    51: &id063 {}
+  51: {}
+_node: &id066
+  0:
+    Activity: START
+  1:
+    Activity: Liquid sample from GP / Outpatient
+  2:
+    Activity: 'Direct Wet prep '
+  3:
+    Activity: Read on microscope for parasites
+  4:
+    Activity: Report and discard slide in Sharps bin
+  5:
+    Activity: 'Consumption of sea Food/water sports '
+  6:
+    Activity: "Inoculate a TCBS and INCUBATE in O2 at 37\xB0C for 24hrs"
+  7:
+    Activity: Suspicious colonies (Yellow/Green)
+  8:
+    Activity: "Purity to NA plate and incubate in O2 at 37\xB0C for 24hrs"
+  9:
+    Activity: Oxidase positive
+  10:
+    Activity: Oxidase negative Discard in tin
+  11:
+    Activity: API 20E      (use saline)
+  12:
+    Activity: Agglutinate with 01 & 0139 antisera
+  13:
+    Activity: "If Vibrio save on NAx1 and bead at -80\xB0C"
+  14:
+    Activity: Report & store plate
+  15:
+    Activity: Package in HaysDx box and transfer to reception bag
+  16:
+    Activity: Foreign travel
+  17:
+    Activity: "Inoculate MAC INCUBATE in O2 at 37\xB0C for 24hrs"
+  18:
+    Activity: Lactose negative, oxidase negative
+  19:
+    Activity: Follow process map
+  20:
+    Activity: Request OCP / Diarrhoea >2 weeks
+  21:
+    Activity: 1g of faeces into Parasep
+  22:
+    Activity: Add 2ml ethyl acetate and mix
+  23:
+    Activity: Invert sealed parasep and centrifuge 1200g for 3 mins
+  24:
+    Activity: Unscrew and discard mixing chamber in Biobin
+  25:
+    Activity: Loosen fat plug and decant liquid into dedicated bottle in BSC. Replace
+      lid
+  26:
+    Activity: Mix deposit and make  thin slide prep
+  27:
+    Activity: Read on Microscope & discard slide in sharps bin
+  28:
+    Activity: Discard Paraseps into Biobin on bench
+  29:
+    Activity: Appendicitis / Arthritis/ mesenteric adenitis
+  30:
+    Activity: "Direct inoculation of CIN agar Incubate in O2 at 30\xB0Cfor 48hrs"
+  31:
+    Activity: Suspicious bullseye colony
+  32:
+    Activity: MALDI-TOFF ID
+  33:
+    Activity: Children <5yrs or If requested and immunosuppressed/mesenteric adenitis/
+      outbreak
+  34:
+    Activity: Add 0.1g of faeces to extraction vial
+  35:
+    Activity: Vortex for 10 seconds
+  36:
+    Activity: Break off tip of vial
+  37:
+    Activity: Add 4 drops to Rota / adeno kit
+  38:
+    Activity: Incubate at RT for 10 minutes and read
+  39:
+    Activity: Discard into sharps bin
+  40:
+    Activity: 'If Rota +ve retrieve faeces and package in HaysDx box '
+  41:
+    Activity: Transfer to bag outside reception
+  42:
+    Activity: Transfer to bag outside reception
+  43:
+    Activity: 'Norovirus Process '
+  44:
+    Activity: 'C.diff if:
+
+      1. Requested
+
+      2. Inpatient >16yrs
+
+      3. GP >65yrs
+
+      4. Post antibiotics
+
+      5. Pseudomembranous colitis'
+  45:
+    Activity: Add 400ul GDH reagent + 100ul of faeces in Cryovial
+  46:
+    Activity: Centrifuge 5000g for 10 mins
+  47:
+    Activity: Transported in closed box DS2(VSM)
+  48:
+    Activity: Review GDH result
+  49:
+    Activity: Report and store sample
+  50:
+    Activity: GDH Positive Process Map
+  51:
+    Activity: END
+_pred:
+  0: {}
+  1:
+    0: *id001
+  2:
+    1: *id002
+  3:
+    2: *id003
+  4:
+    3: *id004
+  5:
+    0: *id005
+  6:
+    5: *id006
+  7:
+    6: *id007
+  8:
+    7: *id008
+  9:
+    8: *id009
+  10:
+    9: *id010
+  11:
+    9: *id011
+  12:
+    11: *id012
+  13:
+    11: *id013
+    12: *id014
+  14:
+    13: *id015
+  15:
+    13: *id016
+  16:
+    0: *id017
+  17:
+    16: *id018
+  18:
+    17: *id019
+  19:
+    18: *id020
+  20:
+    0: *id021
+  21:
+    20: *id022
+  22:
+    21: *id023
+  23:
+    22: *id024
+  24:
+    23: *id025
+  25:
+    24: *id026
+  26:
+    25: *id027
+  27:
+    26: *id028
+  28:
+    27: *id029
+  29:
+    0: *id030
+  30:
+    29: *id031
+  31:
+    30: *id032
+  32:
+    31: *id033
+  33:
+    0: *id034
+  34:
+    33: *id035
+  35:
+    34: *id036
+  36:
+    35: *id037
+  37:
+    36: *id038
+  38:
+    37: *id039
+  39:
+    38: *id040
+  40:
+    38: *id041
+  41:
+    40: *id042
+  42:
+    0: *id043
+  43:
+    42: *id044
+  44:
+    0: *id045
+  45:
+    44: *id046
+  46:
+    45: *id047
+  47:
+    46: *id048
+  48:
+    47: *id049
+  49:
+    48: *id050
+  50:
+    48: *id051
+  51:
+    4: *id052
+    10: *id053
+    14: *id054
+    15: *id055
+    19: *id056
+    28: *id057
+    32: *id058
+    39: *id059
+    41: *id060
+    43: *id061
+    49: *id062
+    50: *id063
+_succ: *id064
+adjlist_inner_dict_factory: &id065 !!python/name:builtins.dict ''
+adjlist_outer_dict_factory: *id065
+edge_attr_dict_factory: *id065
+graph:
+  name: GPM3
+node_dict_factory: *id065
+nodes: !!python/object:networkx.classes.reportviews.NodeView
+  _nodes: *id066

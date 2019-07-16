@@ -1,0 +1,157 @@
+!!python/object:networkx.classes.digraph.DiGraph
+_adj: &id029
+  0:
+    1: &id001 {}
+    8: &id009 {}
+    14: &id019 {}
+  1:
+    2: &id002 {}
+  2:
+    3: &id003 {}
+    9: &id010 {}
+  3:
+    4: &id004 {}
+  4:
+    5: &id005 {}
+    11: &id014 {}
+  5:
+    6: &id006 {}
+  6:
+    7: &id007 {}
+  7:
+    21: &id026 {}
+  8:
+    9: &id011 {}
+  9:
+    10: &id013 {}
+  10:
+    11: &id015 {}
+  11:
+    12: &id017 {}
+  12:
+    7: &id008 {}
+    13: &id018 {}
+  13:
+    21: &id027 {}
+  14:
+    15: &id020 {}
+  15:
+    9: &id012 {}
+    16: &id021 {}
+  16:
+    17: &id022 {}
+  17:
+    11: &id016 {}
+    18: &id023 {}
+  18:
+    19: &id024 {}
+  19:
+    20: &id025 {}
+  20:
+    21: &id028 {}
+  21: {}
+_node: &id031
+  0:
+    Activity: DUMMY
+  1:
+    Activity: DUMMY
+  2:
+    Activity: DUMMY
+  3:
+    Activity: DUMMY
+  4:
+    Activity: DUMMY
+  5:
+    Activity: DUMMY
+  6:
+    Activity: DUMMY
+  7:
+    Activity: DUMMY
+  8:
+    Activity: DUMMY
+  9:
+    Activity: DUMMY
+  10:
+    Activity: DUMMY
+  11:
+    Activity: DUMMY
+  12:
+    Activity: DUMMY
+  13:
+    Activity: DUMMY
+  14:
+    Activity: DUMMY
+  15:
+    Activity: DUMMY
+  16:
+    Activity: DUMMY
+  17:
+    Activity: DUMMY
+  18:
+    Activity: DUMMY
+  19:
+    Activity: DUMMY
+  20:
+    Activity: DUMMY
+  21:
+    Activity: DUMMY
+_pred:
+  0: {}
+  1:
+    0: *id001
+  2:
+    1: *id002
+  3:
+    2: *id003
+  4:
+    3: *id004
+  5:
+    4: *id005
+  6:
+    5: *id006
+  7:
+    6: *id007
+    12: *id008
+  8:
+    0: *id009
+  9:
+    2: *id010
+    8: *id011
+    15: *id012
+  10:
+    9: *id013
+  11:
+    4: *id014
+    10: *id015
+    17: *id016
+  12:
+    11: *id017
+  13:
+    12: *id018
+  14:
+    0: *id019
+  15:
+    14: *id020
+  16:
+    15: *id021
+  17:
+    16: *id022
+  18:
+    17: *id023
+  19:
+    18: *id024
+  20:
+    19: *id025
+  21:
+    7: *id026
+    13: *id027
+    20: *id028
+_succ: *id029
+adjlist_inner_dict_factory: &id030 !!python/name:builtins.dict ''
+adjlist_outer_dict_factory: *id030
+edge_attr_dict_factory: *id030
+graph:
+  name: Graph 2
+node_dict_factory: *id030
+nodes: !!python/object:networkx.classes.reportviews.NodeView
+  _nodes: *id031

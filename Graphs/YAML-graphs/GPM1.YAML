@@ -1,0 +1,92 @@
+!!python/object:networkx.classes.digraph.DiGraph
+_adj: &id015
+  0:
+    1: &id001 {}
+  1:
+    2: &id002 {}
+  2:
+    3: &id003 {}
+  3:
+    4: &id004 {}
+    9: &id010 {}
+  4:
+    5: &id005 {}
+    8: &id008 {}
+  5:
+    6: &id006 {}
+  6:
+    7: &id007 {}
+    8: &id009 {}
+  7:
+    11: &id012 {}
+  8:
+    11: &id013 {}
+  9:
+    10: &id011 {}
+  10:
+    11: &id014 {}
+  11: {}
+_node: &id017
+  0:
+    Activity: Faeces / perianal swabs / artefacts arrive in reception placed in plastic
+      box
+  1:
+    Activity: Box sealed and transported from reception through corridors on A-floor
+      / up internal stairs to Enterics
+  2:
+    Activity: MLA staff check specimen details against request and code sample
+  3:
+    Activity: Any indication sample High Risk
+  4:
+    Activity: Inpatient
+  5:
+    Activity: From SRU ESSU/AMU/B3ED/LJU/CAU NG2/C31/D57 Toghill or Fletcher wards
+  6:
+    Activity: Check on NOTIS Is date of admission greater than 3 days
+  7:
+    Activity: Code for C diff only +extras (no culture) and follow C diff process
+  8:
+    Activity: Follow routine Process
+  9:
+    Activity: Transfer to Cat 3 in High risk transport box.
+  10:
+    Activity: "Process as per methods but within Cat 3 facility \u2013 C.diff separate\
+      \ method"
+  11:
+    Activity: END
+_pred:
+  0: {}
+  1:
+    0: *id001
+  2:
+    1: *id002
+  3:
+    2: *id003
+  4:
+    3: *id004
+  5:
+    4: *id005
+  6:
+    5: *id006
+  7:
+    6: *id007
+  8:
+    4: *id008
+    6: *id009
+  9:
+    3: *id010
+  10:
+    9: *id011
+  11:
+    7: *id012
+    8: *id013
+    10: *id014
+_succ: *id015
+adjlist_inner_dict_factory: &id016 !!python/name:builtins.dict ''
+adjlist_outer_dict_factory: *id016
+edge_attr_dict_factory: *id016
+graph:
+  name: GPM1
+node_dict_factory: *id016
+nodes: !!python/object:networkx.classes.reportviews.NodeView
+  _nodes: *id017

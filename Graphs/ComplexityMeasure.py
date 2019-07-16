@@ -63,6 +63,8 @@ class DiGraphUI:
         # Display the menu bar
         root.config(menu=main_menu)
 
+        ################################################################################################################
+        #                                       DiGraph UI
         # Sizes relative to the display resolution used to ensure UI deign works across multiple display resolutions
         padded_frame_width = graph_frame_width - (graph_frame_width / 8)
         padded_height = height - (height / 25)
@@ -70,6 +72,7 @@ class DiGraphUI:
         # Counter for measuring size of NetworkX graph/pydot layoutPyDot produced directional node graph
         max_width = 0
         max_height = 0
+        # Calculate Pydot graph layout of graph
         pydot_layout = (nx.nx_pydot.pydot_layout(self, prog='dot'))
         # Calculate dimensions of DiGraph, to build/size TkInter interface
         # No library function for it, so must extract values manually
@@ -137,7 +140,7 @@ class DiGraphUI:
         complexity_header = Label(complex_frame, text="Complexity measures", font=("TkDefaultFont", 25), bg='white')
         complexity_header.place(x=side_frame_width / 2, y=2*(height / 16), anchor="center")
 
-        # Add cylcomatic number + UI for it
+        # Add cyclomatic number + UI for it
         cyclomatic_number_val = DiGraphUI.cyclomatic_number(self)
         cyclomatic_label = Label(complex_frame, text=("Cyclomatic complexity \n" + str(cyclomatic_number_val)),
                                  bg='white', font=("TkDefaultFont", 20))
@@ -168,15 +171,13 @@ class DiGraphUI:
         activity_list = self.nodes
         # Iterate/extract activities, insert into UI box
         for activity in activity_list:
-            # sys.stdout.write(str(activity) + " - ")
-            # sys.stdout.flush()
             list_box.insert(activity, str(activity) + " - " + self.nodes[activity]['Activity'])
         list_box.grid(row=0, column=0, sticky="nsew")
         # Declare as lambda to stop unintended execution
         root.protocol('WM_DELETE_WINDOW', lambda: sys.exit())
         root.mainloop()
 
-    # Disused method for plotting graph in matplotlib, may be useful for for 
+    # Disused method for plotting graph in matplotlib, may be useful for for
     # future diagnostic use, visualisation of data, etc 
     def graph_draw_gen(self):
         for key, value in self.graph.items():
@@ -347,17 +348,17 @@ class DiGraphUI:
         nx.write_yaml(graph, +str(graph)+".YAML")
 
     # Call library function to read and return yaml file of NetworkX graph
-    def yaml_reader(file_name):
-        yaml_graph = nx.read_yaml(file_name)
+    def yaml_reader(file_location):
+        yaml_graph = nx.read_yaml(file_location)
         return yaml_graph
 
     def open_graph(self):
-        file_name = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(("YAML files", "yaml"),))
+        file_location = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(("YAML files", "yaml"),))
         # If user closes window, '' is returned, if statement to catch this and stop the software closing
-        if file_name == '':
+        if file_location == '':
             return
         root.destroy()
-        DiGraphUI.ui_graph(DiGraphUI.yaml_reader(file_name))
+        DiGraphUI.ui_graph(DiGraphUI.yaml_reader(file_location))
 
 
 # Class for tooltip
@@ -372,11 +373,11 @@ class ToolTipGen(object):
         self.top_window = None
 
     # Respond to mouse entering widget space
-    def arrive(self, blank=None):
+    def arrive(self, arg):
         self.plan()
 
     # Respond to mouse leaving widget space
-    def depart(self, blank=None):
+    def depart(self, arg):
         self.remove_plan()
         self.hide_tooltip()
 
@@ -389,38 +390,57 @@ class ToolTipGen(object):
     def remove_plan(self):
         identity = self.identity
         self.identity = None
-        if identity:
+        if bool(identity):
             self.widget.after_cancel(identity)
 
     # Display tooltip
-    def display_tooltip(self, blank=None):
-        # Set/declare variables
+    def display_tooltip(self):
+        # Set dimesnions for where tooltip will appear
         x, y, x1, y2 = self.widget.bbox("insert")
         y += self.widget.winfo_rooty() + 20
         x += self.widget.winfo_rootx() + 25
         # Insert a top window
         self.top_window = Toplevel(self.widget)
-        # Remove window, while leaving label
-        self.top_window.wm_overrideredirect(1)
+        # Set window to open just over mouse pointer
         self.top_window.wm_geometry("+%d+%d" % (x, y))
+        #  Prevent the window manager from decorating the window
+        self.top_window.wm_overrideredirect(1)
         # Generate label
-        label = Label(self.top_window, background="#ffffff", borderwidth=1, justify="left",
-                         wraplength=150, relief='solid', text=self.text)
+        label = Label(self.top_window, background="#ffffff", borderwidth=1, justify="left", wraplength=150,
+                      relief='solid', text=self.text)
+        # Build label in "invisible" top window
         label.pack()
 
     # Remove tooltip
     def hide_tooltip(self):
         top_window = self.top_window
         self.top_window = None
-        if top_window:
+        if bool(top_window):
             top_window.destroy()
 
 
 def main():
-    Tk().withdraw()
-    global file_name
-    file_name = askopenfilename()
-    DiGraphUI.ui_graph(DiGraphUI.yaml_reader(file_name))
+    # Create root for askopenfilename interface
+    root_main = Tk()
+    # Make root as small as possible
+    width = 1
+    height = 1
+    # get screen width and height
+    width_screen = root_main.winfo_screenwidth()
+    height_screen = root_main.winfo_screenheight()
+    # calculate x and y coordinates for the Tk root window
+    x = (width_screen / 2) - (width / 2)
+    y = (height_screen / 2) - (height / 2)
+    # Hide root behind askopenfilename interface (keep things neat)
+    root_main.geometry('%dx%d+%d+%d' % (width, height, x, y))
+    # Keep ask open on top
+    root_main.focus_force()
+    # Obtain location of desired file/graph
+    file_location = askopenfilename()
+    # Close askopenfile root
+    root_main.destroy()
+    # Pass file_location into class function
+    DiGraphUI.ui_graph(DiGraphUI.yaml_reader(file_location))
 
 
 if __name__ == "__main__":
